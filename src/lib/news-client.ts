@@ -124,7 +124,7 @@ export async function fetchSportsNews(options: FetchNewsOptions = {}): Promise<N
       }
 
       const res = await fetch(`${NEWS_API_URL}?${params}`, {
-        next: { revalidate: 900 }, // 15 минут кэш
+        cache: "no-store", // Без кэша — на Vercel serverless кэш может блокировать
       });
 
       if (!res.ok) {
