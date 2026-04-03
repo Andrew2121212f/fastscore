@@ -92,8 +92,11 @@ export async function fetchSportsNews(options: FetchNewsOptions = {}): Promise<N
 
   // Если нет API ключа — сразу fallback
   if (!NEWS_API_KEY) {
+    console.warn("[news-client] NEWS_API_KEY is not set, using fallback articles");
     return FALLBACK_ARTICLES.slice(0, count);
   }
+
+  console.log("[news-client] Fetching from NewsData.io, key starts with:", NEWS_API_KEY.substring(0, 8));
 
   try {
     const langCode = lang === "nl" ? "nl" : lang === "de" ? "de" : lang === "fr" ? "fr" : "en";
@@ -125,11 +128,13 @@ export async function fetchSportsNews(options: FetchNewsOptions = {}): Promise<N
       });
 
       if (!res.ok) {
-        console.error(`[news-client] NewsData.io responded with ${res.status}`);
+        const errorText = await res.text().catch(() => "");
+        console.error(`[news-client] NewsData.io responded with ${res.status}:`, errorText.substring(0, 200));
         break;
       }
 
       const data = await res.json();
+      console.log(`[news-client] Page ${p + 1}: got ${data.results?.length || 0} articles, status: ${data.status}`);
 
       if (data.status !== "success" || !data.results) {
         break;
