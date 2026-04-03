@@ -1,0 +1,305 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { useState, useRef, useEffect } from "react";
+import {
+  Activity, Calendar, Trophy, Newspaper, Search,
+  Home, ChevronDown, Globe, Sun, Moon, X,
+  Shield, FileText, Cookie, Mail, Info, Zap,
+  Menu
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+import { localeNames, type Locale } from "@/i18n/config";
+import { useTheme } from "@/components/theme-provider";
+import { SPORT_IDS } from "@/types/api";
+import SportIcon from "@/components/sports/sport-icon";
+import PromoBanner from "@/components/promo/promo-banner";
+
+const mainNav = [
+  { key: "home", href: "", icon: Home },
+  { key: "live", href: "/live", icon: Activity },
+  { key: "matches", href: "/matches", icon: Calendar },
+  { key: "results", href: "/results", icon: Trophy },
+  { key: "news", href: "/news", icon: Newspaper },
+] as const;
+
+const sports = [
+  { slug: "football", id: SPORT_IDS.football },
+  { slug: "basketball", id: SPORT_IDS.basketball },
+  { slug: "hockey", id: SPORT_IDS.hockey },
+  { slug: "tennis", id: SPORT_IDS.tennis },
+  { slug: "volleyball", id: SPORT_IDS.volleyball },
+  { slug: "baseball", id: SPORT_IDS.baseball },
+  { slug: "handball", id: SPORT_IDS.handball },
+  { slug: "tableTennis", id: SPORT_IDS.tableTennis },
+  { slug: "esports", id: SPORT_IDS.esports },
+  { slug: "mma", id: SPORT_IDS.mma },
+  { slug: "boxing", id: SPORT_IDS.boxing },
+  { slug: "rugby", id: SPORT_IDS.rugby },
+  { slug: "cricket", id: SPORT_IDS.cricket },
+];
+
+const legalNav = [
+  { key: "about", href: "/about", icon: Info },
+  { key: "contact", href: "/contact", icon: Mail },
+  { key: "privacy", href: "/privacy", icon: Shield },
+  { key: "terms", href: "/terms", icon: FileText },
+  { key: "cookies", href: "/cookies", icon: Cookie },
+] as const;
+
+export default function Sidebar() {
+  const t = useTranslations("nav");
+  const tFooter = useTranslations("footer");
+  const tSport = useTranslations("sport");
+  const locale = useLocale();
+  const pathname = usePathname();
+  const { theme, toggle } = useTheme();
+  const [langOpen, setLangOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [sportsExpanded, setSportsExpanded] = useState(false);
+  const langRef = useRef<HTMLDivElement>(null);
+
+  const pathnameWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
+
+  // Закрываем мобильное меню при смене маршрута
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Блокируем скролл body при открытом мобильном меню
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  const isActive = (href: string) => {
+    if (href === "") return pathnameWithoutLocale === "/";
+    return pathnameWithoutLocale === href || pathnameWithoutLocale.startsWith(href + "/");
+  };
+
+  const sidebarContent = (
+    <div className="flex flex-col h-full">
+      {/* Logo */}
+      <div className="px-5 py-5 flex items-center justify-between">
+        <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-orange text-white font-extrabold text-sm shadow-md shadow-brand-orange/20">
+            FS
+          </div>
+          <span className="text-lg font-bold tracking-tight">
+            Fast<span className="text-brand-orange">Score</span>
+          </span>
+        </Link>
+        <button
+          onClick={() => setMobileOpen(false)}
+          className="lg:hidden flex h-8 w-8 items-center justify-center rounded-lg text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+
+      {/* Search */}
+      <div className="px-4 mb-4">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search matches, teams..."
+            className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-surface border border-border text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/20 transition-all"
+          />
+        </div>
+      </div>
+
+      {/* Main Navigation */}
+      <div className="px-3 mb-2">
+        <span className="px-3 text-xs font-bold uppercase tracking-widest text-text-muted">
+          Menu
+        </span>
+      </div>
+      <nav className="px-3 space-y-0.5 mb-6" role="navigation" aria-label="Main navigation">
+        {mainNav.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <Link
+              key={item.key}
+              href={`/${locale}${item.href}`}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
+                active
+                  ? "bg-brand-orange/10 text-brand-orange font-semibold"
+                  : "text-text-secondary hover:text-foreground hover:bg-surface-hover"
+              )}
+            >
+              <item.icon className={cn("h-[18px] w-[18px]", active && "text-brand-orange")} />
+              <span>{item.key === "home" ? "Dashboard" : t(item.key as "live" | "matches" | "results" | "news")}</span>
+              {item.key === "live" && (
+                <span className="ml-auto flex h-2 w-2 rounded-full bg-accent-green animate-pulse-live" />
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Sports */}
+      <div className="px-3 mb-2">
+        <button
+          onClick={() => setSportsExpanded(!sportsExpanded)}
+          className="flex items-center justify-between w-full px-3 group"
+        >
+          <span className="text-xs font-bold uppercase tracking-widest text-text-muted">
+            Sports
+          </span>
+          <ChevronDown className={cn("h-3 w-3 text-text-muted transition-transform", sportsExpanded && "rotate-180")} />
+        </button>
+      </div>
+      <nav className="px-3 space-y-0.5 mb-6">
+        {(sportsExpanded ? sports : sports.slice(0, 5)).map((sport) => (
+          <Link
+            key={sport.slug}
+            href={`/${locale}/live?sport=${sport.slug}`}
+            className="flex items-center gap-3 px-3 py-1.5 rounded-xl text-sm font-medium text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
+          >
+            <span className="w-[18px] flex items-center justify-center"><SportIcon sportId={sport.id} size={16} /></span>
+            <span className="capitalize">{tSport(sport.slug)}</span>
+          </Link>
+        ))}
+        {!sportsExpanded && sports.length > 5 && (
+          <button
+            onClick={() => setSportsExpanded(true)}
+            className="flex items-center gap-3 px-3 py-1.5 rounded-xl text-xs font-medium text-text-muted hover:text-text-secondary transition-all w-full"
+          >
+            <span className="w-[18px] text-center text-sm">+</span>
+            <span>{sports.length - 5} more sports</span>
+          </button>
+        )}
+      </nav>
+
+      {/* Info pages */}
+      <div className="px-3 mb-2">
+        <span className="px-3 text-xs font-bold uppercase tracking-widest text-text-muted">
+          Info
+        </span>
+      </div>
+      <nav className="px-3 space-y-0.5 mb-6">
+        {legalNav.map((item) => {
+          const active = isActive(`/${item.key}`);
+          return (
+            <Link
+              key={item.key}
+              href={`/${locale}/${item.key}`}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition-all",
+                active
+                  ? "bg-brand-orange/10 text-brand-orange"
+                  : "text-text-muted hover:text-text-secondary hover:bg-surface-hover"
+              )}
+            >
+              <item.icon className="h-4 w-4" />
+              <span>{tFooter(item.key as "about" | "contact" | "privacy" | "terms" | "cookies")}</span>
+            </Link>
+          );
+        })}
+      </nav>
+
+      {/* Spacer */}
+      <div className="flex-1" />
+
+      {/* Bottom controls */}
+      <div className="px-4 pb-4 space-y-3">
+        {/* Theme + Language row */}
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggle}
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
+          <div className="relative flex-1" ref={langRef}>
+            <button
+              onClick={() => setLangOpen(!langOpen)}
+              className="flex items-center gap-2 w-full px-3 py-2 rounded-xl text-sm font-medium text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
+            >
+              <Globe className="h-4 w-4" />
+              {locale.toUpperCase()}
+              <ChevronDown className={cn("h-3 w-3 ml-auto transition-transform", langOpen && "rotate-180")} />
+            </button>
+            {langOpen && (
+              <div className="absolute bottom-full left-0 mb-2 w-full glass-strong rounded-xl p-1.5 shadow-xl animate-fade-up z-50">
+                {(Object.entries(localeNames) as [Locale, string][]).map(([code, name]) => (
+                  <Link
+                    key={code}
+                    href={`/${code}${pathnameWithoutLocale}`}
+                    onClick={() => setLangOpen(false)}
+                    className={cn(
+                      "flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                      code === locale
+                        ? "bg-brand-orange/15 text-brand-orange"
+                        : "text-text-secondary hover:text-foreground hover:bg-surface-hover"
+                    )}
+                  >
+                    {name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Промо-баннер */}
+        <PromoBanner variant={1} className="rounded-xl max-h-20 [&_img]:max-h-20" />
+        <div className="flex items-center gap-2 px-1 pt-2 text-[11px] text-text-muted">
+          <Zap className="h-3 w-3" />
+          <span>Powered by Vivat Sport</span>
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Mobile toggle button */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        className="lg:hidden fixed top-4 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-xl bg-surface border border-border shadow-lg backdrop-blur-xl"
+        aria-label="Open menu"
+      >
+        <Menu className="h-5 w-5 text-foreground" />
+      </button>
+
+      {/* Mobile overlay */}
+      {mobileOpen && (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={cn(
+          "fixed top-0 left-0 z-50 h-screen w-[272px] bg-background border-r border-border overflow-y-auto scrollbar-none transition-transform duration-300 lg:translate-x-0",
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
+        {sidebarContent}
+      </aside>
+    </>
+  );
+}

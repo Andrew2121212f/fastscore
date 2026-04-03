@@ -1,0 +1,188 @@
+"use client";
+
+import { useState } from "react";
+import { useTranslations, useLocale } from "next-intl";
+import { motion } from "framer-motion";
+import { Clock, ArrowRight, ExternalLink } from "lucide-react";
+import { useNews } from "@/hooks/use-news";
+import { cn } from "@/lib/utils";
+import type { NewsArticle } from "@/types/news";
+import PromoBanner from "@/components/promo/promo-banner";
+
+// Категории для фильтрации
+const CATEGORIES = [
+  { key: "all", label: "All" },
+  { key: "football", label: "Football" },
+  { key: "basketball", label: "Basketball" },
+  { key: "tennis", label: "Tennis" },
+  { key: "hockey", label: "Hockey" },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 12 },
+  visible: (i: number) => ({
+    opacity: 1, y: 0,
+    transition: { delay: i * 0.06, duration: 0.35, ease: "easeOut" as const },
+  }),
+};
+
+function formatNewsDate(dateStr: string): string {
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  } catch {
+    return dateStr;
+  }
+}
+
+export default function NewsPage() {
+  const t = useTranslations("news");
+  const locale = useLocale();
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const { data, isLoading } = useNews(activeCategory, locale);
+  const articles = data?.items || [];
+  const featured = articles.find((a) => !a.isPromo);
+  const rest = articles.filter((a) => a !== featured);
+
+  return (
+    <div className="space-y-5">
+      {/* Фильтр категорий */}
+      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none scroll-fade-x">
+        {CATEGORIES.map((cat) => (
+          <button
+            key={cat.key}
+            onClick={() => setActiveCategory(cat.key)}
+            className={cn(
+              "px-4 py-2 rounded-xl text-sm font-bold whitespace-nowrap transition-all border",
+              activeCategory === cat.key
+                ? "bg-brand-orange text-white border-brand-orange shadow-md shadow-brand-orange/20"
+                : "text-text-secondary border-border hover:text-foreground hover:border-foreground/20 hover:bg-surface"
+            )}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Загрузка */}
+      {isLoading ? (
+        <div className="space-y-4">
+          <div className="skeleton h-64 rounded-2xl" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="skeleton h-56 rounded-2xl" />
+            ))}
+          </div>
+        </div>
+      ) : articles.length === 0 ? (
+        <div className="card p-10 text-center">
+          <p className="text-text-secondary text-sm">{t("noArticles")}</p>
+        </div>
+      ) : (
+        <>
+          {/* Featured Article */}
+          {featured && (
+            <motion.article
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="card card-interactive overflow-hidden cursor-pointer group"
+            >
+              <a href={featured.url} target="_blank" rel="noopener noreferrer" className="grid grid-cols-1 lg:grid-cols-2">
+                <div className="relative aspect-video lg:aspect-auto lg:min-h-64 overflow-hidden bg-surface">
+                  <img
+                    src={featured.imageUrl}
+                    alt={featured.title}
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 left-3">
+                    <span className="px-2.5 py-1 bg-brand-orange text-white text-xs font-bold rounded-lg">
+                      {t("featured")}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-5 lg:p-6 flex flex-col justify-center">
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    <span className="text-xs font-bold text-brand-orange uppercase tracking-wider">
+                      {featured.category}
+                    </span>
+                    <span className="text-xs text-text-muted">{formatNewsDate(featured.publishedAt)}</span>
+                    {featured.source && (
+                      <span className="text-xs text-text-muted">{featured.source}</span>
+                    )}
+                  </div>
+                  <h2 className="text-base sm:text-lg font-extrabold mb-2 group-hover:text-brand-orange transition-colors leading-tight">
+                    {featured.title}
+                  </h2>
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed mb-4 line-clamp-3">
+                    {featured.excerpt}
+                  </p>
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-brand-orange">
+                    {t("readMore")}
+                    <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </a>
+            </motion.article>
+          )}
+
+          {/* Промо-баннер между featured и сеткой */}
+          <PromoBanner variant={1} className="max-h-20 [&_img]:max-h-20 [&_picture]:max-h-20" />
+
+          {/* Article Grid */}
+          <motion.div initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+            {rest.map((article: NewsArticle, i: number) => (
+              <motion.article
+                key={article.id}
+                variants={fadeUp}
+                custom={i}
+                className="card card-interactive overflow-hidden group cursor-pointer relative"
+              >
+                <a href={article.url} target={article.isPromo ? "_blank" : "_self"} rel="noopener noreferrer">
+                  <div className="relative aspect-video overflow-hidden bg-surface">
+                    <img
+                      src={article.imageUrl}
+                      alt={article.title}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+                      <span className="px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded-md text-xs font-bold text-brand-orange">
+                        {article.category}
+                      </span>
+                    </div>
+                    {/* Нативный бейдж Sponsored для промо */}
+                    {article.isPromo && (
+                      <span className="absolute bottom-2 right-2 px-1.5 py-0.5 text-[10px] font-medium text-white/70 bg-black/40 backdrop-blur-sm rounded">
+                        Sponsored
+                      </span>
+                    )}
+                  </div>
+                  <div className="p-3.5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-2.5 w-2.5 text-text-muted" />
+                      <span className="text-xs text-text-muted">{formatNewsDate(article.publishedAt)}</span>
+                      <span className="text-xs text-text-muted">{article.source}</span>
+                    </div>
+                    <h3 className="text-sm font-bold leading-snug mb-1.5 group-hover:text-brand-orange transition-colors line-clamp-2">
+                      {article.title}
+                    </h3>
+                    <p className="text-xs text-text-muted leading-relaxed line-clamp-2">
+                      {article.excerpt}
+                    </p>
+                    {article.isPromo && (
+                      <div className="flex items-center gap-1 mt-2 text-xs font-semibold text-brand-orange">
+                        Learn more <ExternalLink className="h-3 w-3" />
+                      </div>
+                    )}
+                  </div>
+                </a>
+              </motion.article>
+            ))}
+          </motion.div>
+        </>
+      )}
+    </div>
+  );
+}
