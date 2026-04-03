@@ -206,7 +206,7 @@ export default function HomeClient() {
                   >
                     <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shrink-0">
                       {/* Используем img т.к. домены картинок из API непредсказуемы */}
-                      <img src={article.imageUrl} alt={article.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      <img src={article.imageUrl} alt={article.title} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop"; }} />
                       {article.isPromo && (
                         <span className="absolute bottom-1 right-1 px-1 py-0.5 text-[9px] font-medium text-white/70 bg-black/40 backdrop-blur-sm rounded">
                           Sponsored

@@ -95,6 +95,7 @@ export default function NewsPage() {
                     alt={featured.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
+                    onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1461896836934-bd45ba47c285?w=800&h=500&fit=crop"; }}
                   />
                   <div className="absolute top-3 left-3">
                     <span className="px-2.5 py-1 bg-brand-orange text-white text-xs font-bold rounded-lg">
@@ -146,6 +147,7 @@ export default function NewsPage() {
                       alt={article.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
+                      onError={(e) => { (e.target as HTMLImageElement).src = `https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&h=400&fit=crop`; }}
                     />
                     <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
                       <span className="px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded-md text-xs font-bold text-brand-orange">

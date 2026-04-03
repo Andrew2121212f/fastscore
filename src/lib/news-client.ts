@@ -4,6 +4,26 @@ import type { NewsArticle } from "@/types/news";
 const NEWS_API_KEY = process.env.NEWS_API_KEY || "";
 const NEWS_API_URL = "https://newsdata.io/api/1/latest";
 
+// Разнообразные спортивные placeholder-картинки (когда у статьи нет своей)
+const PLACEHOLDER_IMAGES = [
+  "https://images.unsplash.com/photo-1461896836934-bd45ba47c285?w=600&h=400&fit=crop", // стадион ночью
+  "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&h=400&fit=crop", // футбольный мяч
+  "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&h=400&fit=crop", // баскетбол
+  "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop", // футбольное поле сверху
+  "https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=600&h=400&fit=crop", // теннисный корт
+  "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&h=400&fit=crop", // бегун
+  "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?w=600&h=400&fit=crop", // бейсбол
+  "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=600&h=400&fit=crop", // велоспорт
+  "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&h=400&fit=crop", // плавание
+  "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&h=400&fit=crop", // велогонка
+  "https://images.unsplash.com/photo-1459865264687-595d652de67e?w=600&h=400&fit=crop", // гольф
+  "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&h=400&fit=crop", // стадион закат
+  "https://images.unsplash.com/photo-1551958219-acbc608c6377?w=600&h=400&fit=crop", // американский футбол
+  "https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=600&h=400&fit=crop", // бокс
+  "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&h=400&fit=crop", // волейбол
+  "https://images.unsplash.com/photo-1580748142216-0bc0e5169dba?w=600&h=400&fit=crop", // хоккей
+];
+
 /**
  * Захардкоженные статьи-заглушки (fallback при недоступности API).
  */
@@ -164,7 +184,7 @@ export async function fetchSportsNews(options: FetchNewsOptions = {}): Promise<N
       title: item.title,
       excerpt: item.description || item.content?.substring(0, 200) || "",
       url: item.link || "#",
-      imageUrl: item.image_url || FALLBACK_ARTICLES[i % FALLBACK_ARTICLES.length].imageUrl,
+      imageUrl: item.image_url || PLACEHOLDER_IMAGES[i % PLACEHOLDER_IMAGES.length],
       source: item.source_name || item.source_id || "Unknown",
       category: mapCategory(item.category || []),
       publishedAt: item.pubDate || new Date().toISOString(),
