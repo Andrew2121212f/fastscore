@@ -33,10 +33,6 @@ export default function PromoBanner({ variant = 1, className = "" }: PromoBanner
           loading="lazy"
         />
       </picture>
-      {/* Маленький бейдж Ad */}
-      <span className="absolute top-2 right-2 px-1.5 py-0.5 text-[10px] font-medium text-white/60 bg-black/30 backdrop-blur-sm rounded">
-        Ad
-      </span>
     </a>
   );
 }
