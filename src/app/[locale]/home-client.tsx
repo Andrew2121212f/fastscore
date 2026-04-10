@@ -2,8 +2,9 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import {
-  ArrowRight, ExternalLink, Newspaper,
+  ArrowRight, ExternalLink, Newspaper, Activity,
 } from "lucide-react";
+import EmptyState from "@/components/ui/empty-state";
 import Link from "next/link";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { usePrematchEvents } from "@/hooks/use-prematch-events";
@@ -59,7 +60,7 @@ export default function HomeClient() {
           {liveLoading ? (
             <div className="space-y-3">{[...Array(2)].map((_, i) => <TournamentGroupSkeleton key={i} rows={3} />)}</div>
           ) : liveEvents.length === 0 ? (
-            <div className="card p-8 text-center text-sm text-text-muted">{t("noLiveEvents")}</div>
+            <EmptyState icon={Activity} title={t("noLiveEvents")} description="Check back soon — matches update in real time" />
           ) : (
             <div className="space-y-3">
               {Object.entries(groupedLive).slice(0, 6).map(([tournament, events]: [string, any[]]) => (

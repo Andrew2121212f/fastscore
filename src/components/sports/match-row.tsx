@@ -2,6 +2,7 @@
 
 import { cn, formatMatchTime, formatKickoffSafe } from "@/lib/utils";
 import { TeamLogo } from "@/components/sports/team-logo";
+import { EXTERNAL_PLATFORM } from "@/lib/constants";
 
 interface MatchRowProps {
   event: any;
@@ -41,7 +42,11 @@ export default function MatchRow({ event, mode }: MatchRowProps) {
   );
 
   return (
-    <div className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 hover:bg-surface/50 transition-colors cursor-pointer">
+    <a
+      href={EXTERNAL_PLATFORM}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 hover:bg-surface/50 transition-colors cursor-pointer">
       {/* Статус */}
       <div className="w-9 sm:w-14 shrink-0 text-center">
         {statusEl}
@@ -107,6 +112,6 @@ export default function MatchRow({ event, mode }: MatchRowProps) {
           ))}
         </div>
       )}
-    </div>
+    </a>
   );
 }

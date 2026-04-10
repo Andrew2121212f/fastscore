@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Wifi, ExternalLink, Loader2 } from "lucide-react";
+import { Wifi, ExternalLink, Loader2, Activity } from "lucide-react";
+import EmptyState from "@/components/ui/empty-state";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { SPORT_IDS } from "@/types/api";
 import { EXTERNAL_PLATFORM } from "@/lib/constants";
@@ -67,7 +68,7 @@ export default function LivePage() {
           ))}
         </div>
       ) : events.length === 0 ? (
-        <div className="card p-8 text-center text-sm text-text-muted">{t("noLiveEvents")}</div>
+        <EmptyState icon={Activity} title={t("noLiveEvents")} description="Live scores will appear here when matches start" />
       ) : (
         <div className="space-y-3">
           <AnimatePresence mode="popLayout">

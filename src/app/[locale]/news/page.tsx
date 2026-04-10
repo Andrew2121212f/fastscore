@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
-import { Clock, ArrowRight, ExternalLink } from "lucide-react";
+import { Clock, ArrowRight, ExternalLink, Newspaper } from "lucide-react";
+import EmptyState from "@/components/ui/empty-state";
 import { useNews } from "@/hooks/use-news";
 import { cn } from "@/lib/utils";
 import type { NewsArticle } from "@/types/news";
 import PromoBanner from "@/components/promo/promo-banner";
+import { NewsCardSkeleton } from "@/components/ui/skeletons";
 
 // Категории для фильтрации
 const CATEGORIES = [
@@ -68,17 +70,31 @@ export default function NewsPage() {
       {/* Загрузка */}
       {isLoading ? (
         <div className="space-y-4">
-          <div className="skeleton h-64 rounded-2xl" />
+          {/* Featured skeleton */}
+          <div className="card overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-2">
+              <div className="skeleton aspect-video lg:min-h-64" />
+              <div className="p-5 lg:p-6 space-y-3">
+                <div className="flex gap-2">
+                  <div className="skeleton h-3 w-16 rounded" />
+                  <div className="skeleton h-3 w-24 rounded" />
+                </div>
+                <div className="skeleton h-5 w-3/4 rounded" />
+                <div className="skeleton h-5 w-1/2 rounded" />
+                <div className="skeleton h-3 w-full rounded" />
+                <div className="skeleton h-3 w-2/3 rounded" />
+              </div>
+            </div>
+          </div>
+          {/* Grid skeleton */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="skeleton h-56 rounded-2xl" />
+              <NewsCardSkeleton key={i} index={i} />
             ))}
           </div>
         </div>
       ) : articles.length === 0 ? (
-        <div className="card p-10 text-center">
-          <p className="text-text-secondary text-sm">{t("noArticles")}</p>
-        </div>
+        <EmptyState icon={Newspaper} title={t("noArticles")} description="New articles are published regularly" />
       ) : (
         <>
           {/* Featured Article */}

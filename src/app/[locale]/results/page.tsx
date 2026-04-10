@@ -3,7 +3,8 @@
 import { useTranslations, useLocale } from "next-intl";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, Loader2 } from "lucide-react";
+import { ChevronRight, Loader2, Trophy } from "lucide-react";
+import EmptyState from "@/components/ui/empty-state";
 import SportIcon from "@/components/sports/sport-icon";
 
 interface ResultSport {
@@ -56,9 +57,7 @@ export default function ResultsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-brand-orange" />
         </div>
       ) : sports.length === 0 ? (
-        <div className="card p-10 text-center">
-          <p className="text-text-secondary text-sm">{t("common.noResults")}</p>
-        </div>
+        <EmptyState icon={Trophy} title={t("common.noResults")} description="Results will appear after matches are completed" />
       ) : (
         <>
           {/* Sport Tabs */}
@@ -85,9 +84,7 @@ export default function ResultsPage() {
               <Loader2 className="h-5 w-5 animate-spin text-brand-orange" />
             </div>
           ) : tournaments.length === 0 ? (
-            <div className="card p-8 text-center">
-              <p className="text-text-secondary text-sm">{t("common.noResults")}</p>
-            </div>
+            <EmptyState icon={Trophy} title={t("common.noResults")} description="No tournaments found for this sport" />
           ) : (
             <AnimatePresence mode="wait">
               <motion.div

@@ -31,8 +31,9 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    apple: "/favicon.svg",
+    apple: "/icon-192.svg",
   },
+  manifest: "/manifest.json",
   openGraph: {
     type: "website",
     siteName: "FastScore",
