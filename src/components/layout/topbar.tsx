@@ -3,11 +3,13 @@
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { Activity, Calendar, Trophy, Newspaper, Home, Bell, ExternalLink, X } from "lucide-react";
+import { Activity, Calendar, Trophy, Newspaper, Home, Bell, ExternalLink, X, Sun, Moon, Globe, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { cn, formatMatchTime } from "@/lib/utils";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { EXTERNAL_PLATFORM } from "@/lib/constants";
+import { useTheme } from "@/components/theme-provider";
+import { localeNames, type Locale } from "@/i18n/config";
 
 const routeInfo: Record<string, { icon: typeof Home; labelKey: string }> = {
   "/": { icon: Home, labelKey: "dashboard" },
@@ -21,9 +23,12 @@ export default function Topbar() {
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("nav");
+  const { theme, toggle } = useTheme();
   const { data: liveData } = useLiveEvents(undefined, locale);
   const [notifOpen, setNotifOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const notifRef = useRef<HTMLDivElement>(null);
+  const langRef = useRef<HTMLDivElement>(null);
 
   const pathnameWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
   const baseRoute = "/" + (pathnameWithoutLocale.split("/")[1] || "");
@@ -39,19 +44,22 @@ export default function Topbar() {
       if (notifRef.current && !notifRef.current.contains(e.target as Node)) {
         setNotifOpen(false);
       }
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
   // Закрываем при смене маршрута
-  useEffect(() => { setNotifOpen(false); }, [pathname]);
+  useEffect(() => { setNotifOpen(false); setLangOpen(false); }, [pathname]);
 
   return (
     <header className="sticky top-0 z-30 h-16 bg-background/80 border-b border-border backdrop-blur-xl">
       <div className="flex items-center justify-between h-full px-6">
         {/* Left: Page info */}
-        <div className="flex items-center gap-3 pl-10 lg:pl-0">
+        <div className="flex items-center gap-3">
           <div className={cn(
             "flex h-9 w-9 items-center justify-center rounded-xl",
             baseRoute === "/live" ? "bg-accent-green/10" : "bg-brand-orange/10"
@@ -159,6 +167,46 @@ export default function Topbar() {
                     <ExternalLink className="h-3 w-3" />
                   </Link>
                 )}
+              </div>
+            )}
+          </div>
+
+          {/* Тема — только на мобильном (на десктопе в сайдбаре) */}
+          <button
+            onClick={toggle}
+            className="lg:hidden flex h-9 w-9 items-center justify-center rounded-xl text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
+            aria-label="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
+          {/* Язык — только на мобильном */}
+          <div className="relative lg:hidden" ref={langRef}>
+            <button
+              onClick={() => setLangOpen(!langOpen)}
+              className="flex items-center gap-1 px-2 py-2 rounded-xl text-xs font-bold text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
+            >
+              <Globe className="h-4 w-4" />
+              {locale.toUpperCase()}
+              <ChevronDown className={cn("h-3 w-3 transition-transform", langOpen && "rotate-180")} />
+            </button>
+            {langOpen && (
+              <div className="absolute right-0 top-full mt-2 w-36 bg-background border border-border rounded-xl p-1 shadow-xl animate-fade-up z-50">
+                {(Object.entries(localeNames) as [Locale, string][]).map(([code, name]) => (
+                  <Link
+                    key={code}
+                    href={`/${code}${pathnameWithoutLocale}`}
+                    onClick={() => setLangOpen(false)}
+                    className={cn(
+                      "flex items-center w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors",
+                      code === locale
+                        ? "bg-brand-orange/15 text-brand-orange"
+                        : "text-text-secondary hover:text-foreground hover:bg-surface-hover"
+                    )}
+                  >
+                    {name}
+                  </Link>
+                ))}
               </div>
             )}
           </div>

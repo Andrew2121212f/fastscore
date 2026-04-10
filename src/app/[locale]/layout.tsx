@@ -5,6 +5,7 @@ import { locales } from "@/i18n/config";
 import Providers from "@/components/providers";
 import Sidebar from "@/components/layout/sidebar";
 import Topbar from "@/components/layout/topbar";
+import BottomNav from "@/components/layout/bottom-nav";
 
 export default async function LocaleLayout({
   children,
@@ -28,8 +29,9 @@ export default async function LocaleLayout({
           <Sidebar />
           <div className="flex-1 lg:ml-[272px] flex flex-col min-h-screen">
             <Topbar />
-            <main className="flex-1 p-4 lg:p-6">{children}</main>
+            <main className="flex-1 p-4 pb-24 lg:p-6 lg:pb-6">{children}</main>
           </div>
+          <BottomNav />
         </div>
       </Providers>
     </NextIntlClientProvider>

@@ -12,6 +12,7 @@ import SportTabs from "@/components/sports/sport-tabs";
 import { MOCK_PREMATCH_EVENTS } from "@/lib/mock-data";
 import { EXTERNAL_PLATFORM } from "@/lib/constants";
 import PromoBanner from "@/components/promo/promo-banner";
+import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
 
 export default function MatchesPage() {
   const t = useTranslations("home");
@@ -30,8 +31,8 @@ export default function MatchesPage() {
 
       {isLoading ? (
         <div className="space-y-3">
-          {[...Array(4)].map((_, i) => (
-            <div key={i} className="skeleton h-44 rounded-2xl" />
+          {[...Array(3)].map((_, i) => (
+            <TournamentGroupSkeleton key={i} rows={4} />
           ))}
         </div>
       ) : (
@@ -59,7 +60,7 @@ export default function MatchesPage() {
                       className="card overflow-hidden"
                     >
                       <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
-                        <TournamentLogo images={tournEvents[0]?.tournamentImage} sportId={tournEvents[0]?.sportId} />
+                        <TournamentLogo images={tournEvents[0]?.tournamentImage} name={tournament} sportId={tournEvents[0]?.sportId} />
                         <span className="text-xs font-bold text-foreground">{tournament}</span>
                         <span className="text-xs text-text-muted ml-auto">{tournEvents.length} matches</span>
                       </div>

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { teamLogoUrl, tournamentLogoUrl } from "@/lib/utils";
 import { SPORT_ICON_SLUGS, SPORT_ICONS } from "@/lib/constants";
+import { getLocalLeagueLogo } from "@/lib/league-logos";
+import { useTheme } from "@/components/theme-provider";
 
 const SPORT_GRADIENTS: Record<number, string> = {
   1:  "from-emerald-500 to-green-700",
@@ -95,24 +97,40 @@ export function TeamLogo({
 
 export function TournamentLogo({
   images,
+  name,
   sportId,
   size = 20,
 }: {
   images?: string[] | string | null;
+  name?: string;
   sportId?: number;
   size?: number;
 }) {
+  const { theme } = useTheme();
+  const localLogo = getLocalLeagueLogo(name, theme as "dark" | "light");
   const url = tournamentLogoUrl(images);
   const [failed, setFailed] = useState(false);
 
+  // Приоритет: локальный SVG → CDN → fallback
+  if (localLogo) {
+    return (
+      <img
+        src={localLogo}
+        alt={name || ""}
+        className="shrink-0"
+        style={{ width: size, height: size, objectFit: "contain" }}
+      />
+    );
+  }
+
   if (!url || failed) {
-    return <FallbackAvatar sportId={sportId} size={size} round={false} />;
+    return <FallbackAvatar sportId={sportId} name={name} size={size} round={false} />;
   }
 
   return (
     <img
       src={url}
-      alt=""
+      alt={name || ""}
       className="rounded-md object-cover bg-surface ring-1 ring-white/10 shrink-0"
       style={{ width: size, height: size }}
       onError={() => setFailed(true)}

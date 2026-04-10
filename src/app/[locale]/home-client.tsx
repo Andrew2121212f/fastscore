@@ -2,10 +2,9 @@
 
 import { useTranslations, useLocale } from "next-intl";
 import {
-  ArrowRight, ExternalLink, Newspaper, Clock
+  ArrowRight, ExternalLink, Newspaper,
 } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { usePrematchEvents } from "@/hooks/use-prematch-events";
 import { useNews } from "@/hooks/use-news";
@@ -18,11 +17,15 @@ import {
   POPULAR_LEAGUES,
 } from "@/lib/mock-data";
 import PromoBanner from "@/components/promo/promo-banner";
+import { getLocalLeagueLogo } from "@/lib/league-logos";
+import { useTheme } from "@/components/theme-provider";
+import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
 
 export default function HomeClient() {
   const t = useTranslations("home");
   const locale = useLocale();
 
+  const { theme } = useTheme();
   const { data: liveData, isLoading: liveLoading } = useLiveEvents(undefined, locale);
   const { data: prematchData, isLoading: prematchLoading } = usePrematchEvents(undefined, locale);
   const { data: newsData } = useNews(undefined, locale);
@@ -53,7 +56,7 @@ export default function HomeClient() {
           </div>
 
           {liveLoading ? (
-            <div className="space-y-3">{[...Array(3)].map((_, i) => <div key={i} className="skeleton h-32 rounded-2xl" />)}</div>
+            <div className="space-y-3">{[...Array(2)].map((_, i) => <TournamentGroupSkeleton key={i} rows={3} />)}</div>
           ) : liveEvents.length === 0 ? (
             <div className="card p-8 text-center text-sm text-text-muted">{t("noLiveEvents")}</div>
           ) : (
@@ -61,7 +64,7 @@ export default function HomeClient() {
               {Object.entries(groupedLive).slice(0, 6).map(([tournament, events]: [string, any[]]) => (
                 <div key={tournament} className="card overflow-hidden">
                   <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
-                    <TournamentLogo images={events[0]?.tournamentImage} sportId={events[0]?.sportId} />
+                    <TournamentLogo images={events[0]?.tournamentImage} name={tournament} sportId={events[0]?.sportId} />
                     <span className="text-xs font-bold">{tournament}</span>
                     <span className="text-xs text-text-muted ml-auto">{events.length} matches</span>
                   </div>
@@ -133,13 +136,13 @@ export default function HomeClient() {
           </div>
 
           {prematchLoading ? (
-            <div className="space-y-3">{[...Array(2)].map((_, i) => <div key={i} className="skeleton h-40 rounded-2xl" />)}</div>
+            <div className="space-y-3">{[...Array(2)].map((_, i) => <TournamentGroupSkeleton key={i} rows={4} />)}</div>
           ) : (
             <div className="space-y-3">
               {Object.entries(groupedPrematch).slice(0, 5).map(([tournament, events]: [string, any[]]) => (
                 <div key={tournament} className="card overflow-hidden">
                   <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
-                    <TournamentLogo images={events[0]?.tournamentImage} sportId={events[0]?.sportId} />
+                    <TournamentLogo images={events[0]?.tournamentImage} name={tournament} sportId={events[0]?.sportId} />
                     <span className="text-xs font-bold">{tournament}</span>
                     <span className="text-xs text-text-muted ml-auto">{events.length} matches</span>
                   </div>
@@ -235,18 +238,25 @@ export default function HomeClient() {
           <div>
             <h3 className="text-base font-bold mb-3">Popular Leagues</h3>
             <div className="space-y-2">
-              {POPULAR_LEAGUES.map((league) => (
-                <a key={league.name} href={EXTERNAL_PLATFORM} target="_blank" rel="noopener noreferrer" className="card p-3 flex items-center gap-3 cursor-pointer group hover:border-brand-orange/30">
-                  <div className="relative h-10 w-10 rounded-xl overflow-hidden shrink-0">
-                    <Image src={league.image} alt={league.name} fill sizes="40px" className="object-cover" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-bold truncate group-hover:text-brand-orange transition-colors">{league.name}</p>
-                    <p className="text-xs text-text-muted">{league.emoji} {league.country}</p>
-                  </div>
-                  <span className="text-xs font-bold text-text-muted bg-surface px-2 py-0.5 rounded-md">{league.matches}</span>
-                </a>
-              ))}
+              {POPULAR_LEAGUES.map((league) => {
+                const logoPath = getLocalLeagueLogo(league.logoKey, theme as "dark" | "light");
+                return (
+                  <a key={league.name} href={EXTERNAL_PLATFORM} target="_blank" rel="noopener noreferrer" className="card p-3 flex items-center gap-3 cursor-pointer group hover:border-brand-orange/30">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface shrink-0 p-1.5">
+                      {logoPath ? (
+                        <img src={logoPath} alt={league.name} className="w-full h-full" style={{ objectFit: "contain" }} />
+                      ) : (
+                        <span className="text-lg">{league.emoji}</span>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-bold truncate group-hover:text-brand-orange transition-colors">{league.name}</p>
+                      <p className="text-xs text-text-muted">{league.emoji} {league.country}</p>
+                    </div>
+                    <span className="text-xs font-bold text-text-muted bg-surface px-2 py-0.5 rounded-md">{league.matches}</span>
+                  </a>
+                );
+              })}
             </div>
           </div>
 

@@ -6,9 +6,8 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState, useRef, useEffect } from "react";
 import {
   Activity, Calendar, Trophy, Newspaper, Search,
-  Home, ChevronDown, Globe, Sun, Moon, X,
+  Home, ChevronDown, Globe, Sun, Moon,
   Shield, FileText, Cookie, Mail, Info, Zap,
-  Menu
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { localeNames, type Locale } from "@/i18n/config";
@@ -58,7 +57,6 @@ export default function Sidebar() {
   const { theme, toggle } = useTheme();
   const [langOpen, setLangOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [sportsExpanded, setSportsExpanded] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
@@ -73,17 +71,6 @@ export default function Sidebar() {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
-
-  // Закрываем мобильное меню при смене маршрута
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
-  // Блокируем скролл body при открытом мобильном меню
-  useEffect(() => {
-    document.body.style.overflow = mobileOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
 
   const isActive = (href: string) => {
     if (href === "") return pathnameWithoutLocale === "/";
@@ -102,12 +89,6 @@ export default function Sidebar() {
             Fast<span className="text-brand-orange">Score</span>
           </span>
         </Link>
-        <button
-          onClick={() => setMobileOpen(false)}
-          className="lg:hidden flex h-8 w-8 items-center justify-center rounded-lg text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
-        >
-          <X className="h-4 w-4" />
-        </button>
       </div>
 
       {/* Search */}
@@ -273,33 +254,8 @@ export default function Sidebar() {
   );
 
   return (
-    <>
-      {/* Mobile toggle button */}
-      <button
-        onClick={() => setMobileOpen(true)}
-        className="lg:hidden fixed top-4 left-4 z-50 flex h-10 w-10 items-center justify-center rounded-xl bg-surface border border-border shadow-lg backdrop-blur-xl"
-        aria-label="Open menu"
-      >
-        <Menu className="h-5 w-5 text-foreground" />
-      </button>
-
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <aside
-        className={cn(
-          "fixed top-0 left-0 z-50 h-screen w-[272px] bg-background border-r border-border overflow-y-auto scrollbar-none transition-transform duration-300 lg:translate-x-0",
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
-        {sidebarContent}
-      </aside>
-    </>
+    <aside className="hidden lg:block fixed top-0 left-0 z-50 h-screen w-[272px] bg-background border-r border-border overflow-y-auto scrollbar-none">
+      {sidebarContent}
+    </aside>
   );
 }

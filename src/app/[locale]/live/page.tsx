@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Wifi, ExternalLink } from "lucide-react";
+import { Wifi, ExternalLink, Loader2 } from "lucide-react";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { SPORT_IDS } from "@/types/api";
 import { EXTERNAL_PLATFORM } from "@/lib/constants";
@@ -13,6 +13,7 @@ import { TeamLogo, TournamentLogo } from "@/components/sports/team-logo";
 import SportTabs from "@/components/sports/sport-tabs";
 import { MOCK_LIVE_EVENTS } from "@/lib/mock-data";
 import PromoBanner from "@/components/promo/promo-banner";
+import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
 
 export default function LivePage() {
   const t = useTranslations("home");
@@ -36,7 +37,8 @@ export default function LivePage() {
   };
 
   const sportId = activeSport ? String(SPORT_IDS[activeSport]) : undefined;
-  const { data, isLoading } = useLiveEvents(sportId, locale);
+  const { data, isLoading, isFetching, dataUpdatedAt } = useLiveEvents(sportId, locale);
+  const isRefreshing = isFetching && !isLoading;
 
   const events = (data?.items?.length ? data.items : MOCK_LIVE_EVENTS) as any[];
   const grouped = groupBy(events, (e: any) => e.tournamentNameLocalization || "Other");
@@ -45,16 +47,23 @@ export default function LivePage() {
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 justify-between">
         <SportTabs active={activeSport} onChange={handleSportChange} />
-        <div className="flex items-center gap-1.5 text-xs font-medium text-accent-green bg-accent-green/5 px-3 py-1.5 rounded-xl border border-accent-green/20 shrink-0">
-          <Wifi className="h-3 w-3" />
-          <span>Auto-updating every 10s</span>
+        <div
+          key={dataUpdatedAt}
+          className="flex items-center gap-1.5 text-xs font-medium text-accent-green bg-accent-green/5 px-3 py-1.5 rounded-xl border border-accent-green/20 shrink-0 animate-fade-up"
+        >
+          {isRefreshing ? (
+            <Loader2 className="h-3 w-3 animate-spin" />
+          ) : (
+            <Wifi className="h-3 w-3" />
+          )}
+          <span>{isRefreshing ? "Updating..." : "Live · auto-update"}</span>
         </div>
       </div>
 
       {isLoading ? (
         <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="skeleton h-44 rounded-2xl" />
+            <TournamentGroupSkeleton key={i} rows={3} />
           ))}
         </div>
       ) : events.length === 0 ? (
@@ -72,7 +81,7 @@ export default function LivePage() {
                 className="card overflow-hidden"
               >
                 <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
-                  <TournamentLogo images={tournamentEvents[0]?.tournamentImage} sportId={tournamentEvents[0]?.sportId} />
+                  <TournamentLogo images={tournamentEvents[0]?.tournamentImage} name={tournament} sportId={tournamentEvents[0]?.sportId} />
                   <span className="text-xs font-bold text-foreground">{tournament}</span>
                   <span className="text-xs text-text-muted ml-auto">{tournamentEvents.length} matches</span>
                 </div>
