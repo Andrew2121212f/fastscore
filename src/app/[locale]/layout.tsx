@@ -29,7 +29,7 @@ export default async function LocaleLayout({
           <Sidebar />
           <div className="flex-1 lg:ml-[272px] flex flex-col min-h-screen">
             <Topbar />
-            <main className="flex-1 p-4 pb-24 lg:p-6 lg:pb-6">{children}</main>
+            <main className="flex-1 p-4 pb-24 lg:p-6 lg:pb-6 overflow-x-hidden">{children}</main>
           </div>
           <BottomNav />
         </div>

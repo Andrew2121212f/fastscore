@@ -57,23 +57,21 @@ export default function Topbar() {
 
   return (
     <header className="sticky top-0 z-30 h-16 bg-background/80 border-b border-border backdrop-blur-xl">
-      <div className="flex items-center justify-between h-full px-6">
+      <div className="flex items-center justify-between h-full px-3 sm:px-6">
         {/* Left: Page info */}
         <div className="flex items-center gap-3">
           <div className={cn(
-            "flex h-9 w-9 items-center justify-center rounded-xl",
+            "flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl shrink-0",
             baseRoute === "/live" ? "bg-accent-green/10" : "bg-brand-orange/10"
           )}>
             <Icon className={cn(
-              "h-[18px] w-[18px]",
+              "h-4 w-4 sm:h-[18px] sm:w-[18px]",
               baseRoute === "/live" ? "text-accent-green" : "text-brand-orange"
             )} />
           </div>
-          <div>
-            <h1 className="text-lg font-bold leading-tight">
-              {baseRoute === "/" ? "Dashboard" : t(info?.labelKey as "live" | "matches" | "results" | "news")}
-            </h1>
-          </div>
+          <h1 className="text-sm sm:text-lg font-bold leading-tight truncate">
+            {baseRoute === "/" ? "Dashboard" : t(info?.labelKey as "live" | "matches" | "results" | "news")}
+          </h1>
         </div>
 
         {/* Right: Actions */}

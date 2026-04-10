@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -13,7 +13,6 @@ import { TournamentLogo } from "@/components/sports/team-logo";
 import MatchRow from "@/components/sports/match-row";
 import SportTabs from "@/components/sports/sport-tabs";
 import { MOCK_LIVE_EVENTS } from "@/lib/mock-data";
-import PromoBanner from "@/components/promo/promo-banner";
 import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
 
 export default function LivePage() {
@@ -102,14 +101,7 @@ export default function LivePage() {
                   <ExternalLink className="h-3 w-3" />
                 </a>
               </motion.div>
-            )).reduce<React.ReactNode[]>((acc, item, i) => {
-              acc.push(item);
-              // Баннер после каждой 3-й группы турниров
-              if ((i + 1) % 3 === 0) {
-                acc.push(<PromoBanner key={`promo-${i}`} variant={i % 2 === 0 ? 1 : 2} className="my-3" />);
-              }
-              return acc;
-            }, [])}
+            ))}
           </AnimatePresence>
         </div>
       )}
