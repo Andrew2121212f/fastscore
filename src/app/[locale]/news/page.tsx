@@ -129,7 +129,7 @@ export default function NewsPage() {
           )}
 
           {/* Промо-баннер между featured и сеткой */}
-          <PromoBanner variant={1} className="max-h-20 [&_img]:max-h-20 [&_picture]:max-h-20" />
+          <PromoBanner variant={1} className="" />
 
           {/* Article Grid */}
           <motion.div initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">

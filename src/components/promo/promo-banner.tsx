@@ -20,17 +20,17 @@ export default function PromoBanner({ variant = 1, className = "" }: PromoBanner
       href={EXTERNAL_PLATFORM}
       target="_blank"
       rel="noopener noreferrer"
-      className={`relative block overflow-hidden rounded-2xl group ${className}`}
+      className={`relative block overflow-hidden rounded-2xl group mx-auto max-w-[280px] ${className}`}
     >
-      {/* Используем нативный img для поддержки srcSet с retina-версиями */}
+      {/* Нативный img с srcSet для retina. width/height = реальные размеры изображения */}
       <picture>
         <img
           src={src}
           srcSet={`${src} 1x, ${srcHiRes} 2x`}
           alt="Vivat Sport"
-          width={800}
-          height={200}
-          className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500"
+          width={280}
+          height={240}
+          className="w-full h-auto group-hover:scale-[1.02] transition-transform duration-500"
           loading="lazy"
         />
       </picture>

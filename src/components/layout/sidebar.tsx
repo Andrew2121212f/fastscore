@@ -244,7 +244,7 @@ export default function Sidebar() {
         </div>
 
         {/* Промо-баннер */}
-        <PromoBanner variant={1} className="rounded-xl max-h-20 [&_img]:max-h-20" />
+        <PromoBanner variant={1} className="rounded-xl" />
         <div className="flex items-center gap-2 px-1 pt-2 text-[11px] text-text-muted">
           <Zap className="h-3 w-3" />
           <span>Powered by Vivat Sport</span>

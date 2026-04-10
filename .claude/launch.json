@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "fastscore",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["C:/Program Files/nodejs/node_modules/npm/bin/npm-cli.js", "run", "dev"],
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /c/Work/fastscore && npm run dev"],
       "port": 3000,
       "autoPort": true
     }

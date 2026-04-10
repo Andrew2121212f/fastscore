@@ -10,8 +10,9 @@ import { usePrematchEvents } from "@/hooks/use-prematch-events";
 import { useNews } from "@/hooks/use-news";
 import { EXTERNAL_PLATFORM } from "@/lib/constants";
 import type { NewsArticle } from "@/types/news";
-import { groupBy, formatMatchTime, formatKickoffSafe, formatDateFull, cn } from "@/lib/utils";
-import { TeamLogo, TournamentLogo } from "@/components/sports/team-logo";
+import { groupBy, cn } from "@/lib/utils";
+import { TournamentLogo } from "@/components/sports/team-logo";
+import MatchRow from "@/components/sports/match-row";
 import {
   MOCK_LIVE_EVENTS, MOCK_PREMATCH_EVENTS,
   POPULAR_LEAGUES,
@@ -69,58 +70,9 @@ export default function HomeClient() {
                     <span className="text-xs text-text-muted ml-auto">{events.length} matches</span>
                   </div>
                   <div className="divide-y divide-border">
-                    {events.slice(0, 4).map((event: any) => {
-                      const isHT = event.gameStatus === 2;
-                      const isFT = event.gameStatus === 1;
-                      return (
-                        <div key={event.sportEventId} className="flex items-center gap-3 px-4 py-3 hover:bg-surface/50 transition-colors cursor-pointer">
-                          <div className="w-11 sm:w-14 shrink-0 text-center">
-                            {isFT ? (
-                              <span className="text-xs font-bold text-text-muted px-2 py-0.5 rounded bg-surface">FT</span>
-                            ) : isHT ? (
-                              <span className="text-xs font-bold text-brand-orange px-2 py-0.5 rounded bg-brand-orange/10">HT</span>
-                            ) : (
-                              <div className="flex flex-col items-center gap-0.5">
-                                <span className="flex h-1.5 w-1.5 rounded-full bg-accent-green animate-pulse-live" />
-                                <span className="text-xs font-mono text-accent-green font-bold">{formatMatchTime(event.timeSec)}</span>
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="flex-1 min-w-0 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                            <div className="flex items-center justify-end gap-2 min-w-0">
-                              <span className="text-[13px] sm:text-sm font-semibold truncate">{event.opponent1NameLocalization || "Team 1"}</span>
-                              <TeamLogo images={event.imageOpponent1} name={event.opponent1NameLocalization || "T"} sportId={event.sportId} />
-                            </div>
-
-                            <div className="flex items-center gap-1.5 font-mono text-sm font-extrabold tabular-nums px-2.5 py-1 rounded-lg bg-surface">
-                              <span className={cn("w-6 text-center", (event.fullScore?.sc1 ?? 0) > (event.fullScore?.sc2 ?? 0) && "text-accent-green")}>
-                                {event.fullScore?.sc1 ?? 0}
-                              </span>
-                              <span className="text-text-muted text-xs">:</span>
-                              <span className={cn("w-6 text-center", (event.fullScore?.sc2 ?? 0) > (event.fullScore?.sc1 ?? 0) && "text-accent-green")}>
-                                {event.fullScore?.sc2 ?? 0}
-                              </span>
-                            </div>
-
-                            <div className="flex items-center gap-2 min-w-0">
-                              <TeamLogo images={event.imageOpponent2} name={event.opponent2NameLocalization || "T"} sportId={event.sportId} />
-                              <span className="text-[13px] sm:text-sm font-semibold truncate">{event.opponent2NameLocalization || "Team 2"}</span>
-                            </div>
-                          </div>
-
-                          {event.oddsLocalization && event.oddsLocalization.length >= 3 && (
-                            <div className="hidden lg:flex items-center gap-1 shrink-0">
-                              {event.oddsLocalization.slice(0, 3).map((odd: any, i: number) => (
-                                <span key={i} className="px-2.5 py-1 rounded-lg bg-surface text-xs font-mono font-bold text-text-secondary hover:bg-brand-orange/10 hover:text-brand-orange transition-all min-w-11 text-center">
-                                  {odd.oddsMarket?.toFixed(2)}
-                                </span>
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
+                    {events.slice(0, 4).map((event: any) => (
+                      <MatchRow key={event.sportEventId} event={event} mode="live" />
+                    ))}
                   </div>
                 </div>
               ))}
@@ -148,34 +100,7 @@ export default function HomeClient() {
                   </div>
                   <div className="divide-y divide-border">
                     {events.slice(0, 4).map((event: any) => (
-                      <div key={event.sportEventId} className="flex items-center gap-3 px-4 py-3 hover:bg-surface/50 transition-colors cursor-pointer">
-                        <div className="w-11 sm:w-14 shrink-0 text-center">
-                          <div className="text-xs font-mono text-text-muted font-medium">{formatKickoffSafe(event.startDate)}</div>
-                          <div className="text-xs text-text-muted">{formatDateFull(event.startDate).split(",")[0]}</div>
-                        </div>
-
-                        <div className="flex-1 min-w-0 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-                          <div className="flex items-center justify-end gap-2 min-w-0">
-                            <span className="text-[13px] sm:text-sm font-semibold truncate">{event.opponent1NameLocalization || "TBD"}</span>
-                            <TeamLogo images={event.imageOpponent1} name={event.opponent1NameLocalization || "T"} sportId={event.sportId} />
-                          </div>
-                          <span className="text-xs text-text-muted font-bold px-2 py-0.5 rounded bg-surface">vs</span>
-                          <div className="flex items-center gap-2 min-w-0">
-                            <TeamLogo images={event.imageOpponent2} name={event.opponent2NameLocalization || "T"} sportId={event.sportId} />
-                            <span className="text-[13px] sm:text-sm font-semibold truncate">{event.opponent2NameLocalization || "TBD"}</span>
-                          </div>
-                        </div>
-
-                        {event.oddsLocalization && event.oddsLocalization.length >= 3 && (
-                          <div className="hidden sm:flex items-center gap-1 shrink-0">
-                            {event.oddsLocalization.slice(0, 3).map((odd: any, i: number) => (
-                              <span key={i} className="px-2.5 py-1 rounded-lg bg-surface text-xs font-mono font-bold text-text-secondary hover:bg-brand-orange/10 hover:text-brand-orange transition-all min-w-11 text-center">
-                                {odd.oddsMarket?.toFixed(2)}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                      <MatchRow key={event.sportEventId} event={event} mode="prematch" />
                     ))}
                   </div>
                   <a href={EXTERNAL_PLATFORM} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-4 py-2.5 border-t border-border text-xs font-semibold text-brand-orange hover:bg-brand-orange/5 transition-colors">
@@ -260,8 +185,8 @@ export default function HomeClient() {
             </div>
           </div>
 
-          <PromoBanner variant={1} className="max-h-32 [&_img]:max-h-32" />
-          <PromoBanner variant={2} className="max-h-32 [&_img]:max-h-32" />
+          <PromoBanner variant={1} className="" />
+          <PromoBanner variant={2} className="" />
         </div>
       </div>
     </div>
