@@ -45,7 +45,7 @@ export default function BottomNav() {
               key={item.key}
               href={`/${locale}${item.href}`}
               className={cn(
-                "relative flex flex-col items-center justify-center gap-0.5 min-w-[52px] min-h-[48px] rounded-xl transition-colors",
+                "relative flex flex-col items-center justify-center gap-0.5 flex-1 min-w-0 min-h-[48px] rounded-xl transition-colors",
                 active ? "text-brand-orange" : "text-text-muted"
               )}
             >

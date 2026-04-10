@@ -27,7 +27,7 @@ export default function PromoBanner({ variant = 1, className = "" }: PromoBanner
         <img
           src={srcHiRes}
           srcSet={`${src} 280w, ${srcHiRes} 1120w`}
-          sizes="(max-width: 640px) 100vw, 560px"
+          sizes="(max-width: 640px) calc(100vw - 1.5rem), 560px"
           alt="Vivat Sport"
           className="w-full h-40 sm:h-48 object-cover group-hover:scale-[1.02] transition-transform duration-500"
           loading="lazy"
