@@ -222,7 +222,7 @@ export default function Sidebar() {
               <ChevronDown className={cn("h-3 w-3 ml-auto transition-transform", langOpen && "rotate-180")} />
             </button>
             {langOpen && (
-              <div className="absolute bottom-full left-0 mb-2 w-full glass-strong rounded-xl p-1.5 shadow-xl animate-fade-up z-50">
+              <div className="absolute bottom-full left-0 mb-2 w-full bg-background border border-border rounded-xl p-1.5 shadow-xl animate-fade-up z-50">
                 {(Object.entries(localeNames) as [Locale, string][]).map(([code, name]) => (
                   <Link
                     key={code}
