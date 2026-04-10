@@ -8,7 +8,6 @@ import EmptyState from "@/components/ui/empty-state";
 import { useNews } from "@/hooks/use-news";
 import { cn } from "@/lib/utils";
 import type { NewsArticle } from "@/types/news";
-import PromoBanner from "@/components/promo/promo-banner";
 import { NewsCardSkeleton } from "@/components/ui/skeletons";
 
 // Категории для фильтрации
@@ -144,8 +143,6 @@ export default function NewsPage() {
             </motion.article>
           )}
 
-          {/* Промо-баннер между featured и сеткой */}
-          <PromoBanner variant={1} className="" />
 
           {/* Article Grid */}
           <motion.div initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
