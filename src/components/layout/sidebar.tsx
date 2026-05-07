@@ -7,7 +7,7 @@ import { useState, useRef, useEffect } from "react";
 import {
   Activity, Calendar, Trophy, Newspaper, Search,
   Home, ChevronDown, Globe, Sun, Moon,
-  Shield, FileText, Cookie, Mail, Info, Zap,
+  Shield, FileText, Cookie, Mail, Info,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { localeNames, type Locale } from "@/i18n/config";
@@ -80,7 +80,7 @@ export default function Sidebar() {
   const sidebarContent = (
     <div className="flex flex-col h-full">
       {/* Logo */}
-      <div className="px-5 py-5 flex items-center justify-between">
+      <div className="px-5 py-3.5 flex items-center justify-between">
         <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-orange text-white font-extrabold text-sm shadow-md shadow-brand-orange/20">
             FS
@@ -92,7 +92,7 @@ export default function Sidebar() {
       </div>
 
       {/* Search */}
-      <div className="px-4 mb-4">
+      <div className="px-4 mb-3">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
           <input
@@ -100,18 +100,18 @@ export default function Sidebar() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search matches, teams..."
-            className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-surface border border-border text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/20 transition-all"
+            className="w-full pl-9 pr-3 py-2 rounded-xl bg-surface border border-border text-sm text-foreground placeholder:text-text-muted focus:outline-none focus:border-brand-orange/50 focus:ring-1 focus:ring-brand-orange/20 transition-all"
           />
         </div>
       </div>
 
       {/* Main Navigation */}
-      <div className="px-3 mb-2">
-        <span className="px-3 text-xs font-bold uppercase tracking-widest text-text-muted">
+      <div className="px-3 mb-1.5">
+        <span className="px-3 text-[11px] font-bold uppercase tracking-widest text-text-muted">
           Menu
         </span>
       </div>
-      <nav className="px-3 space-y-0.5 mb-6" role="navigation" aria-label="Main navigation">
+      <nav className="px-3 space-y-0.5 mb-3" role="navigation" aria-label="Main navigation">
         {mainNav.map((item) => {
           const active = isActive(item.href);
           return (
@@ -120,7 +120,7 @@ export default function Sidebar() {
               href={`/${locale}${item.href}`}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
+                "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200",
                 active
                   ? "bg-brand-orange/10 text-brand-orange font-semibold"
                   : "text-text-secondary hover:text-foreground hover:bg-surface-hover"
@@ -137,19 +137,19 @@ export default function Sidebar() {
       </nav>
 
       {/* Sports */}
-      <div className="px-3 mb-2">
+      <div className="px-3 mb-1.5">
         <button
           onClick={() => setSportsExpanded(!sportsExpanded)}
           className="flex items-center justify-between w-full px-3 group"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-text-muted">
+          <span className="text-[11px] font-bold uppercase tracking-widest text-text-muted">
             Sports
           </span>
           <ChevronDown className={cn("h-3 w-3 text-text-muted transition-transform", sportsExpanded && "rotate-180")} />
         </button>
       </div>
-      <nav className="px-3 space-y-0.5 mb-6">
-        {(sportsExpanded ? sports : sports.slice(0, 5)).map((sport) => (
+      <nav className="px-3 space-y-0.5 mb-3">
+        {(sportsExpanded ? sports : sports.slice(0, 4)).map((sport) => (
           <Link
             key={sport.slug}
             href={`/${locale}/live?sport=${sport.slug}`}
@@ -159,24 +159,24 @@ export default function Sidebar() {
             <span className="capitalize">{tSport(sport.slug)}</span>
           </Link>
         ))}
-        {!sportsExpanded && sports.length > 5 && (
+        {!sportsExpanded && sports.length > 4 && (
           <button
             onClick={() => setSportsExpanded(true)}
             className="flex items-center gap-3 px-3 py-1.5 rounded-xl text-xs font-medium text-text-muted hover:text-text-secondary transition-all w-full"
           >
             <span className="w-[18px] text-center text-sm">+</span>
-            <span>{sports.length - 5} more sports</span>
+            <span>{sports.length - 4} more sports</span>
           </button>
         )}
       </nav>
 
       {/* Info pages */}
-      <div className="px-3 mb-2">
-        <span className="px-3 text-xs font-bold uppercase tracking-widest text-text-muted">
+      <div className="px-3 mb-1.5">
+        <span className="px-3 text-[11px] font-bold uppercase tracking-widest text-text-muted">
           Info
         </span>
       </div>
-      <nav className="px-3 space-y-0.5 mb-6">
+      <nav className="px-3 space-y-0.5 mb-3">
         {legalNav.map((item) => {
           const active = isActive(`/${item.key}`);
           return (
@@ -184,7 +184,7 @@ export default function Sidebar() {
               key={item.key}
               href={`/${locale}/${item.key}`}
               className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-xl text-[13px] font-medium transition-all",
+                "flex items-center gap-3 px-3 py-1.5 rounded-xl text-[13px] font-medium transition-all",
                 active
                   ? "bg-brand-orange/10 text-brand-orange"
                   : "text-text-muted hover:text-text-secondary hover:bg-surface-hover"
@@ -198,10 +198,10 @@ export default function Sidebar() {
       </nav>
 
       {/* Spacer */}
-      <div className="flex-1" />
+      <div className="flex-1 min-h-2" />
 
       {/* Bottom controls */}
-      <div className="px-4 pb-4 space-y-3">
+      <div className="px-4 pb-3 space-y-2">
         {/* Theme + Language row */}
         <div className="flex items-center gap-2">
           <button
@@ -243,18 +243,14 @@ export default function Sidebar() {
           </div>
         </div>
 
-        {/* Промо-баннер */}
-        <PromoBanner variant={1} className="rounded-xl" />
-        <div className="flex items-center gap-2 px-1 pt-2 text-[11px] text-text-muted">
-          <Zap className="h-3 w-3" />
-          <span>Powered by Vivat Sport</span>
-        </div>
+        {/* Промо-баннер — компактный вариант для сайдбара (h-24 = 96px) */}
+        <PromoBanner variant={1} size="compact" className="rounded-xl" />
       </div>
     </div>
   );
 
   return (
-    <aside className="hidden lg:block fixed top-0 left-0 z-50 h-screen w-[272px] bg-background border-r border-border overflow-y-auto scrollbar-none">
+    <aside className="hidden lg:block fixed top-0 left-0 z-50 h-screen w-[272px] bg-background border-r border-border overflow-y-auto sidebar-scroll">
       {sidebarContent}
     </aside>
   );
