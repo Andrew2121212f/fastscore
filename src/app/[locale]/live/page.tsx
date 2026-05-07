@@ -4,17 +4,17 @@ import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { useSearchParams, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Wifi, ExternalLink, Loader2, Activity } from "lucide-react";
+import { Wifi, Loader2, Activity } from "lucide-react";
 import EmptyState from "@/components/ui/empty-state";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { SPORT_IDS } from "@/types/api";
-import { EXTERNAL_PLATFORM } from "@/lib/constants";
 import { groupBy } from "@/lib/utils";
 import { TournamentLogo } from "@/components/sports/team-logo";
 import MatchRow from "@/components/sports/match-row";
+import CountryFlag from "@/components/sports/country-flag";
 import SportTabs from "@/components/sports/sport-tabs";
-import { MOCK_LIVE_EVENTS } from "@/lib/mock-data";
 import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
+import { sortTournamentEntries } from "@/lib/league-priority";
 
 export default function LivePage() {
   const t = useTranslations("home");
@@ -41,8 +41,17 @@ export default function LivePage() {
   const { data, isLoading, isFetching, dataUpdatedAt } = useLiveEvents(sportId, locale);
   const isRefreshing = isFetching && !isLoading;
 
-  const events = (data?.items?.length ? data.items : MOCK_LIVE_EVENTS) as any[];
+  // Mount-flag избегает hydration mismatch: на сервере React Query
+  // возвращает isLoading=true, на клиенте после первого рендера данные
+  // (или моки) появляются мгновенно — рассинхрон с server skeleton.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  // На /live используем только реальные данные с API.
+  // Если API ничего не вернул — показываем empty state, а не моки.
+  const events = (data?.items || []) as any[];
   const grouped = groupBy(events, (e: any) => e.tournamentNameLocalization || "Other");
+  const sortedGroups = sortTournamentEntries(Object.entries(grouped));
 
   return (
     <div className="space-y-4">
@@ -61,7 +70,7 @@ export default function LivePage() {
         </div>
       </div>
 
-      {isLoading ? (
+      {!mounted || isLoading ? (
         <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
             <TournamentGroupSkeleton key={i} rows={3} />
@@ -72,7 +81,7 @@ export default function LivePage() {
       ) : (
         <div className="space-y-3">
           <AnimatePresence mode="popLayout">
-            {Object.entries(grouped).map(([tournament, tournamentEvents]: [string, any[]]) => (
+            {sortedGroups.map(([tournament, tournamentEvents]) => (
               <motion.div
                 key={tournament}
                 layout
@@ -83,6 +92,7 @@ export default function LivePage() {
               >
                 <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
                   <TournamentLogo images={tournamentEvents[0]?.tournamentImage} name={tournament} sportId={tournamentEvents[0]?.sportId} />
+                  <CountryFlag tournamentName={tournament} />
                   <span className="text-xs font-bold text-foreground">{tournament}</span>
                   <span className="text-xs text-text-muted ml-auto">{tournamentEvents.length} matches</span>
                 </div>
@@ -92,15 +102,6 @@ export default function LivePage() {
                     <MatchRow key={event.sportEventId} event={event} mode="live" />
                   ))}
                 </div>
-                <a
-                  href={EXTERNAL_PLATFORM}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 border-t border-border text-xs font-semibold text-brand-orange hover:bg-brand-orange/5 transition-colors"
-                >
-                  Bet on Vivat Sport
-                  <ExternalLink className="h-3 w-3" />
-                </a>
               </motion.div>
             ))}
           </AnimatePresence>

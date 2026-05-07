@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { teamLogoUrl, tournamentLogoUrl } from "@/lib/utils";
 import { SPORT_ICON_SLUGS, SPORT_ICONS } from "@/lib/constants";
 import { getLocalLeagueLogo } from "@/lib/league-logos";
@@ -107,7 +107,12 @@ export function TournamentLogo({
   size?: number;
 }) {
   const { theme } = useTheme();
-  const localLogo = getLocalLeagueLogo(name, theme as "dark" | "light");
+  // Откладываем чтение темы до клиента: на SSR используем "dark" (как фолбэк темы),
+  // на клиенте после mount — реальную из localStorage. Иначе hydration mismatch.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const effectiveTheme = mounted ? (theme as "dark" | "light") : "dark";
+  const localLogo = getLocalLeagueLogo(name, effectiveTheme);
   const url = tournamentLogoUrl(images);
   const [failed, setFailed] = useState(false);
 
