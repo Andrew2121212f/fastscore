@@ -228,6 +228,35 @@ body {
   scrollbar-width: none;
 }
 
+/* Тонкий ненавязчивый скроллбар для сайдбара —
+   виден только когда контент не помещается, не отвлекает. */
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.12) transparent;
+}
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 9999px;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}
+[data-theme="light"] .sidebar-scroll {
+  scrollbar-color: rgba(0,0,0,0.15) transparent;
+}
+[data-theme="light"] .sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+}
+[data-theme="light"] .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.25);
+}
+
 /* ===== ГОРИЗОНТАЛЬНЫЙ СКРОЛЛ С МАСКОЙ ===== */
 .scroll-fade-x {
   mask-image: linear-gradient(to right, transparent 0%, black 16px, black calc(100% - 16px), transparent 100%);
