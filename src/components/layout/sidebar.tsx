@@ -7,7 +7,6 @@ import { useState, useRef, useEffect } from "react";
 import {
   Activity, Calendar, Trophy, Newspaper, Search,
   Home, ChevronDown, Globe, Sun, Moon,
-  Shield, FileText, Cookie, Mail, Info,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { localeNames, type Locale } from "@/i18n/config";
@@ -40,17 +39,8 @@ const sports = [
   { slug: "cricket", id: SPORT_IDS.cricket },
 ];
 
-const legalNav = [
-  { key: "about", href: "/about", icon: Info },
-  { key: "contact", href: "/contact", icon: Mail },
-  { key: "privacy", href: "/privacy", icon: Shield },
-  { key: "terms", href: "/terms", icon: FileText },
-  { key: "cookies", href: "/cookies", icon: Cookie },
-] as const;
-
 export default function Sidebar() {
   const t = useTranslations("nav");
-  const tFooter = useTranslations("footer");
   const tSport = useTranslations("sport");
   const locale = useLocale();
   const pathname = usePathname();
@@ -170,32 +160,8 @@ export default function Sidebar() {
         )}
       </nav>
 
-      {/* Info pages */}
-      <div className="px-3 mb-1.5">
-        <span className="px-3 text-[11px] font-bold uppercase tracking-widest text-text-muted">
-          Info
-        </span>
-      </div>
-      <nav className="px-3 space-y-0.5 mb-3">
-        {legalNav.map((item) => {
-          const active = isActive(`/${item.key}`);
-          return (
-            <Link
-              key={item.key}
-              href={`/${locale}/${item.key}`}
-              className={cn(
-                "flex items-center gap-3 px-3 py-1.5 rounded-xl text-[13px] font-medium transition-all",
-                active
-                  ? "bg-brand-orange/10 text-brand-orange"
-                  : "text-text-muted hover:text-text-secondary hover:bg-surface-hover"
-              )}
-            >
-              <item.icon className="h-4 w-4" />
-              <span>{tFooter(item.key as "about" | "contact" | "privacy" | "terms" | "cookies")}</span>
-            </Link>
-          );
-        })}
-      </nav>
+      {/* INFO раздел перенесён в Footer (внизу основного контента) — освобождает
+          место в сайдбаре, чтобы он помещался по высоте на стандартных лаптопах. */}
 
       {/* Spacer */}
       <div className="flex-1 min-h-2" />
