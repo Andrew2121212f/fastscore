@@ -1,48 +1,57 @@
 "use client";
 
-import React, { useState } from "react";
-import { useTranslations, useLocale } from "next-intl";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink } from "lucide-react";
+import { useLocale } from "next-intl";
+import { Calendar } from "lucide-react";
+import EmptyState from "@/components/ui/empty-state";
 import { usePrematchEvents } from "@/hooks/use-prematch-events";
 import { SPORT_IDS } from "@/types/api";
 import { groupBy, formatDateSafe } from "@/lib/utils";
 import { TournamentLogo } from "@/components/sports/team-logo";
 import MatchRow from "@/components/sports/match-row";
+import CountryFlag from "@/components/sports/country-flag";
 import SportTabs from "@/components/sports/sport-tabs";
-import { MOCK_PREMATCH_EVENTS } from "@/lib/mock-data";
-import { EXTERNAL_PLATFORM } from "@/lib/constants";
-import PromoBanner from "@/components/promo/promo-banner";
 import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
+import { sortTournamentEntries } from "@/lib/league-priority";
 
 export default function MatchesPage() {
-  const t = useTranslations("home");
   const locale = useLocale();
   const [activeSport, setActiveSport] = useState<string | null>(null);
 
   const sportId = activeSport ? String(SPORT_IDS[activeSport]) : undefined;
   const { data, isLoading } = usePrematchEvents(sportId, locale);
 
-  const events = (data?.items?.length ? data.items : MOCK_PREMATCH_EVENTS) as any[];
+  // Mount-flag, чтобы SSR и клиент рендерили skeleton одинаково.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  // На /matches используем только реальные данные с API.
+  // Если API ничего не вернул — показываем empty state, а не моки.
+  const events = (data?.items || []) as any[];
   const groupedByDate = groupBy(events, (e: any) => formatDateSafe(e.startDate));
 
   return (
     <div className="space-y-4">
       <SportTabs active={activeSport} onChange={setActiveSport} />
 
-      {isLoading ? (
+      {!mounted || isLoading ? (
         <div className="space-y-3">
           {[...Array(3)].map((_, i) => (
             <TournamentGroupSkeleton key={i} rows={4} />
           ))}
         </div>
+      ) : events.length === 0 ? (
+        <EmptyState icon={Calendar} title="No upcoming matches" description="Match schedule updates throughout the day — check back later" />
       ) : (
         <div className="space-y-6">
-          {Object.entries(groupedByDate).map(([date, dateEvents]: [string, any[]], dateIndex: number) => {
+          {Object.entries(groupedByDate).map(([date, dateEvents]: [string, any[]]) => {
             const groupedByTournament = groupBy(
               dateEvents,
               (e: any) => e.tournamentNameLocalization || "Other"
             );
+            // Сортируем турниры внутри даты по приоритету (Бельгия → Франция → ... → Россия)
+            const sortedTournaments = sortTournamentEntries(Object.entries(groupedByTournament));
 
             return (
               <div key={date}>
@@ -53,7 +62,7 @@ export default function MatchesPage() {
                 </div>
 
                 <div className="space-y-3">
-                  {Object.entries(groupedByTournament).map(([tournament, tournEvents]) => (
+                  {sortedTournaments.map(([tournament, tournEvents]) => (
                     <motion.div
                       key={tournament}
                       initial={{ opacity: 0, y: 8 }}
@@ -62,6 +71,7 @@ export default function MatchesPage() {
                     >
                       <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
                         <TournamentLogo images={tournEvents[0]?.tournamentImage} name={tournament} sportId={tournEvents[0]?.sportId} />
+                        <CountryFlag tournamentName={tournament} />
                         <span className="text-xs font-bold text-foreground">{tournament}</span>
                         <span className="text-xs text-text-muted ml-auto">{tournEvents.length} matches</span>
                       </div>
@@ -71,21 +81,9 @@ export default function MatchesPage() {
                           <MatchRow key={event.sportEventId} event={event} mode="prematch" />
                         ))}
                       </div>
-                      <a
-                        href={EXTERNAL_PLATFORM}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-1.5 px-4 py-2.5 border-t border-border text-xs font-semibold text-brand-orange hover:bg-brand-orange/5 transition-colors"
-                      >
-                        Bet on Vivat Sport <ExternalLink className="h-3 w-3" />
-                      </a>
                     </motion.div>
                   ))}
                 </div>
-              {/* Баннер после каждого 2-го блока дат */}
-              {(dateIndex + 1) % 2 === 0 && (
-                <PromoBanner variant={dateIndex % 2 === 0 ? 1 : 2} className="mt-3" />
-              )}
               </div>
             );
           })}

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronRight, Loader2, Trophy } from "lucide-react";
 import EmptyState from "@/components/ui/empty-state";
 import SportIcon from "@/components/sports/sport-icon";
+import CountryFlag from "@/components/sports/country-flag";
 
 interface ResultSport {
   id: number;
@@ -115,7 +116,8 @@ export default function ResultsPage() {
                         />
                       )}
                       <div>
-                        <p className="text-xs font-semibold group-hover:text-brand-orange transition-colors">
+                        <p className="flex items-center gap-1.5 text-xs font-semibold group-hover:text-brand-orange transition-colors">
+                          <CountryFlag tournamentName={tournament.tournamentNameLocalization} size={12} />
                           {tournament.tournamentNameLocalization}
                         </p>
                         <p className="flex items-center gap-1 text-xs text-text-muted">

@@ -1,24 +1,23 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import {
-  ArrowRight, ExternalLink, Newspaper, Activity,
+  ArrowRight, Newspaper, Activity, ChevronDown, Calendar, CalendarClock,
 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import EmptyState from "@/components/ui/empty-state";
 import Link from "next/link";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { usePrematchEvents } from "@/hooks/use-prematch-events";
 import { useNews } from "@/hooks/use-news";
-import { EXTERNAL_PLATFORM } from "@/lib/constants";
 import type { NewsArticle } from "@/types/news";
 import { groupBy, cn } from "@/lib/utils";
 import { TournamentLogo } from "@/components/sports/team-logo";
 import MatchRow from "@/components/sports/match-row";
-import {
-  MOCK_LIVE_EVENTS, MOCK_PREMATCH_EVENTS,
-  POPULAR_LEAGUES,
-} from "@/lib/mock-data";
-import PromoBanner from "@/components/promo/promo-banner";
+import CountryFlag from "@/components/sports/country-flag";
+import { sortTournamentEntries } from "@/lib/league-priority";
+import { POPULAR_LEAGUES } from "@/lib/mock-data";
 import { getLocalLeagueLogo } from "@/lib/league-logos";
 import { useTheme } from "@/components/theme-provider";
 import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
@@ -33,10 +32,25 @@ export default function HomeClient() {
   const { data: newsData } = useNews(undefined, locale);
   const newsArticles = (newsData?.items || []).slice(0, 4);
 
-  const liveEvents = (liveData?.items?.length ? liveData.items : MOCK_LIVE_EVENTS) as any[];
-  const prematchEvents = (prematchData?.items?.length ? prematchData.items : MOCK_PREMATCH_EVENTS) as any[];
+  // Mount-flag: SSR и первый клиентский рендер показывают skeleton.
+  // После mount подставляем реальные/мок-данные. Без этого React Query
+  // на клиенте отдаёт данные раньше hydration → mismatch с server skeleton.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+
+  // Только реальные данные с API. Без mock-фоллбэка — иначе на проде
+  // показываются "старые" демо-матчи когда API пуст.
+  const liveEvents = (liveData?.items || []) as any[];
+  const prematchEvents = (prematchData?.items || []) as any[];
   const groupedPrematch = groupBy(prematchEvents, (e: any) => e.tournamentNameLocalization || "Other");
   const groupedLive = groupBy(liveEvents, (e: any) => e.tournamentNameLocalization || "Other");
+
+  // Сортируем турниры по приоритету (Бельгия → Франция → Германия → Европа → ... → Россия в конце)
+  const sortedPrematch = sortTournamentEntries(Object.entries(groupedPrematch));
+  const sortedLive = sortTournamentEntries(Object.entries(groupedLive));
+
+  // Состояние раскрытой лиги (accordion)
+  const [openLeague, setOpenLeague] = useState<string | null>(null);
 
   return (
     <div className="space-y-6">
@@ -57,16 +71,17 @@ export default function HomeClient() {
             </Link>
           </div>
 
-          {liveLoading ? (
+          {!mounted || liveLoading ? (
             <div className="space-y-3">{[...Array(2)].map((_, i) => <TournamentGroupSkeleton key={i} rows={3} />)}</div>
           ) : liveEvents.length === 0 ? (
             <EmptyState icon={Activity} title={t("noLiveEvents")} description="Check back soon — matches update in real time" />
           ) : (
             <div className="space-y-3">
-              {Object.entries(groupedLive).slice(0, 6).map(([tournament, events]: [string, any[]]) => (
+              {sortedLive.slice(0, 6).map(([tournament, events]) => (
                 <div key={tournament} className="card overflow-hidden">
                   <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
                     <TournamentLogo images={events[0]?.tournamentImage} name={tournament} sportId={events[0]?.sportId} />
+                    <CountryFlag tournamentName={tournament} />
                     <span className="text-xs font-bold">{tournament}</span>
                     <span className="text-xs text-text-muted ml-auto">{events.length} matches</span>
                   </div>
@@ -88,14 +103,17 @@ export default function HomeClient() {
             </Link>
           </div>
 
-          {prematchLoading ? (
+          {!mounted || prematchLoading ? (
             <div className="space-y-3">{[...Array(2)].map((_, i) => <TournamentGroupSkeleton key={i} rows={4} />)}</div>
+          ) : prematchEvents.length === 0 ? (
+            <EmptyState icon={CalendarClock} title="No upcoming matches" description="Match schedule updates throughout the day" />
           ) : (
             <div className="space-y-3">
-              {Object.entries(groupedPrematch).slice(0, 5).map(([tournament, events]: [string, any[]]) => (
+              {sortedPrematch.slice(0, 5).map(([tournament, events]) => (
                 <div key={tournament} className="card overflow-hidden">
                   <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-surface/50">
                     <TournamentLogo images={events[0]?.tournamentImage} name={tournament} sportId={events[0]?.sportId} />
+                    <CountryFlag tournamentName={tournament} />
                     <span className="text-xs font-bold">{tournament}</span>
                     <span className="text-xs text-text-muted ml-auto">{events.length} matches</span>
                   </div>
@@ -104,9 +122,6 @@ export default function HomeClient() {
                       <MatchRow key={event.sportEventId} event={event} mode="prematch" />
                     ))}
                   </div>
-                  <a href={EXTERNAL_PLATFORM} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 px-4 py-2.5 border-t border-border text-xs font-semibold text-brand-orange hover:bg-brand-orange/5 transition-colors">
-                    Bet on Vivat Sport <ExternalLink className="h-3.5 w-3.5" />
-                  </a>
                 </div>
               ))}
             </div>
@@ -166,28 +181,62 @@ export default function HomeClient() {
             <div className="space-y-2">
               {POPULAR_LEAGUES.map((league) => {
                 const logoPath = getLocalLeagueLogo(league.logoKey, theme as "dark" | "light");
+                const isOpen = openLeague === league.name;
                 return (
-                  <a key={league.name} href={EXTERNAL_PLATFORM} target="_blank" rel="noopener noreferrer" className="card p-3 flex items-center gap-3 cursor-pointer group hover:border-brand-orange/30">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface shrink-0 p-1.5">
-                      {logoPath ? (
-                        <img src={logoPath} alt={league.name} className="w-full h-full" style={{ objectFit: "contain" }} />
-                      ) : (
-                        <span className="text-lg">{league.emoji}</span>
+                  <div key={league.name} className={cn("card overflow-hidden transition-colors", isOpen && "border-brand-orange/30")}>
+                    <button
+                      type="button"
+                      onClick={() => setOpenLeague(isOpen ? null : league.name)}
+                      aria-expanded={isOpen}
+                      className="w-full p-3 flex items-center gap-3 cursor-pointer group hover:bg-surface/30 transition-colors text-left"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface shrink-0 p-1.5">
+                        {logoPath ? (
+                          <img src={logoPath} alt={league.name} className="w-full h-full" style={{ objectFit: "contain" }} />
+                        ) : (
+                          <span className="text-lg">{league.emoji}</span>
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-bold truncate group-hover:text-brand-orange transition-colors">{league.name}</p>
+                        <p className="text-xs text-text-muted">{league.emoji} {league.country}</p>
+                      </div>
+                      <span className="text-xs font-bold text-text-muted bg-surface px-2 py-0.5 rounded-md">{league.matches}</span>
+                      <ChevronDown className={cn("h-4 w-4 text-text-muted transition-transform shrink-0", isOpen && "rotate-180")} />
+                    </button>
+
+                    <AnimatePresence initial={false}>
+                      {isOpen && (
+                        <motion.div
+                          key="content"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                          className="overflow-hidden"
+                        >
+                          <div className="px-4 pb-4 pt-1 border-t border-border space-y-3">
+                            <p className="text-xs leading-relaxed text-text-secondary">
+                              {league.description}
+                            </p>
+                            <div className="flex items-center gap-3 text-[11px] text-text-muted">
+                              <span className="inline-flex items-center gap-1">
+                                <Calendar className="h-3 w-3" /> {league.season}
+                              </span>
+                              <span>·</span>
+                              <span>{league.teams} teams</span>
+                              <span>·</span>
+                              <span>{league.matches} live</span>
+                            </div>
+                          </div>
+                        </motion.div>
                       )}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-bold truncate group-hover:text-brand-orange transition-colors">{league.name}</p>
-                      <p className="text-xs text-text-muted">{league.emoji} {league.country}</p>
-                    </div>
-                    <span className="text-xs font-bold text-text-muted bg-surface px-2 py-0.5 rounded-md">{league.matches}</span>
-                  </a>
+                    </AnimatePresence>
+                  </div>
                 );
               })}
             </div>
           </div>
-
-          <PromoBanner variant={1} className="" />
-          <PromoBanner variant={2} className="" />
         </div>
       </div>
     </div>

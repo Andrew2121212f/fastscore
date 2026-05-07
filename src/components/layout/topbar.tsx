@@ -35,6 +35,8 @@ export default function Topbar() {
   const info = routeInfo[baseRoute] || routeInfo["/"];
   const Icon = info?.icon || Home;
 
+  // Только реальные данные с API. Без mock-фоллбэка — иначе topbar
+  // будет показывать "5 Live" даже когда матчей нет.
   const liveEvents = (liveData?.items || []) as any[];
   const liveCount = liveEvents.length;
 

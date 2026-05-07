@@ -217,6 +217,9 @@ export const POPULAR_LEAGUES = [
     emoji: "🇧🇪",
     matches: 8,
     logoKey: "jupiler pro league",
+    description: "Top-tier Belgian football division featuring 16 clubs, including Club Brugge, Anderlecht and Union SG. Founded in 1895.",
+    teams: 16,
+    season: "2025/26",
   },
   {
     name: "Premier League",
@@ -224,6 +227,9 @@ export const POPULAR_LEAGUES = [
     emoji: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
     matches: 10,
     logoKey: "premier league",
+    description: "England's elite football league with 20 clubs. The most-watched football division in the world, broadcast in 200+ countries.",
+    teams: 20,
+    season: "2025/26",
   },
   {
     name: "Champions League",
@@ -231,6 +237,9 @@ export const POPULAR_LEAGUES = [
     emoji: "🏆",
     matches: 4,
     logoKey: "champions league",
+    description: "UEFA's premier club competition. 36 teams compete in the league phase before knockout rounds, ending with the Final in May.",
+    teams: 36,
+    season: "2025/26",
   },
   {
     name: "La Liga",
@@ -238,6 +247,9 @@ export const POPULAR_LEAGUES = [
     emoji: "🇪🇸",
     matches: 10,
     logoKey: "la liga",
+    description: "Spain's top professional football division. Home of Real Madrid, Barcelona and Atlético Madrid. 20 clubs, 38 matchdays.",
+    teams: 20,
+    season: "2025/26",
   },
   {
     name: "NBA",
@@ -245,6 +257,9 @@ export const POPULAR_LEAGUES = [
     emoji: "🇺🇸",
     matches: 12,
     logoKey: "nba",
+    description: "North American professional basketball league. 30 franchises split between Eastern and Western Conferences. Regular season runs October–April.",
+    teams: 30,
+    season: "2025/26",
   },
   {
     name: "NHL",
@@ -252,6 +267,9 @@ export const POPULAR_LEAGUES = [
     emoji: "🇺🇸",
     matches: 8,
     logoKey: "nhl",
+    description: "Top professional ice hockey league in North America. 32 teams (25 US, 7 Canada). Regular season culminates in the Stanley Cup Playoffs.",
+    teams: 32,
+    season: "2025/26",
   },
 ];
 
