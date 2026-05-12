@@ -21,6 +21,7 @@ import { POPULAR_LEAGUES } from "@/lib/mock-data";
 import { getLocalLeagueLogo } from "@/lib/league-logos";
 import { useTheme } from "@/components/theme-provider";
 import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
+import HeroVideo from "@/components/home/hero-video";
 
 export default function HomeClient() {
   const t = useTranslations("home");
@@ -54,6 +55,9 @@ export default function HomeClient() {
 
   return (
     <div className="space-y-6">
+      {/* Hero-блок: главный h1 страницы + фоновое видео. CTA-кнопки нет (по требованию: переходы только через сайдбар-баннер и кнопку в шапке) */}
+      <HeroVideo />
+
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Left: Live + Upcoming */}
         <div className="xl:col-span-2 space-y-5">
@@ -140,12 +144,18 @@ export default function HomeClient() {
                 </Link>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {newsArticles.map((article: NewsArticle) => (
+                {newsArticles.map((article: NewsArticle) => {
+                  // Internal Sheets-статьи → /[locale]/news/[slug], внешние → новая вкладка
+                  const isInternal = !article.isExternal && article.slug;
+                  const href = isInternal ? `/${locale}/news/${article.slug}` : article.url;
+                  const linkProps = isInternal
+                    ? {}
+                    : { target: "_blank" as const, rel: "noopener noreferrer" };
+                  return (
                   <a
                     key={article.id}
-                    href={article.url}
-                    target={article.isPromo ? "_blank" : "_self"}
-                    rel="noopener noreferrer"
+                    href={href}
+                    {...linkProps}
                     className="card card-interactive overflow-hidden group cursor-pointer flex gap-3 p-3"
                   >
                     <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden shrink-0">
@@ -168,7 +178,8 @@ export default function HomeClient() {
                       <p className="text-[11px] text-text-muted mt-1 line-clamp-1">{article.excerpt}</p>
                     </div>
                   </a>
-                ))}
+                  );
+                })}
               </div>
             </>
           )}
