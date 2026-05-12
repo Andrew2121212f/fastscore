@@ -31,9 +31,11 @@ export function formatKickoff(unix: number): string {
 }
 
 export function getGameStatusLabel(status: number): string {
+  // Ключи должны совпадать с match.status.* в i18n-сообщениях (playing/finished/halftime/...)
+  // Иначе next-intl бросит MISSING_MESSAGE.
   switch (status) {
     case GameStatus.Playing:
-      return "live";
+      return "playing";
     case GameStatus.Finished:
       return "finished";
     case GameStatus.HalfTime:
@@ -46,7 +48,7 @@ export function getGameStatusLabel(status: number): string {
     case GameStatus.VARPenalty:
       return "var";
     default:
-      return "live";
+      return "playing";
   }
 }
 

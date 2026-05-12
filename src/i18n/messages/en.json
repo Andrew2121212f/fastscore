@@ -16,7 +16,11 @@
     "noLiveEvents": "No live events right now",
     "noMatches": "No upcoming matches",
     "placeBet": "Place your bet",
-    "on": "on"
+    "on": "on",
+    "hero": {
+      "title": "Live Scores. Real Sport. One Place.",
+      "subtitle": "Football, basketball, tennis and 30+ sports — updated every few seconds."
+    }
   },
   "match": {
     "halfTime": "HT",

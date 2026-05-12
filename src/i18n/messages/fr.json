@@ -16,7 +16,11 @@
     "noLiveEvents": "Aucun événement en direct",
     "noMatches": "Aucun match à venir",
     "placeBet": "Placez votre pari",
-    "on": "sur"
+    "on": "sur",
+    "hero": {
+      "title": "Scores en direct. Sport réel. Un seul endroit.",
+      "subtitle": "Football, basketball, tennis et plus de 30 sports — mis à jour en temps réel."
+    }
   },
   "match": {
     "halfTime": "MT",

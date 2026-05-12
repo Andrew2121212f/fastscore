@@ -16,7 +16,11 @@
     "noLiveEvents": "Geen live evenementen",
     "noMatches": "Geen komende wedstrijden",
     "placeBet": "Plaats je weddenschap",
-    "on": "op"
+    "on": "op",
+    "hero": {
+      "title": "Live scores. Echte sport. Op één plek.",
+      "subtitle": "Voetbal, basketbal, tennis en meer dan 30 sporten — realtime bijgewerkt."
+    }
   },
   "match": {
     "halfTime": "HT",

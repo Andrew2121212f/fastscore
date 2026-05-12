@@ -71,9 +71,10 @@ export default function Topbar() {
               baseRoute === "/live" ? "text-accent-green" : "text-brand-orange"
             )} />
           </div>
-          <h1 className="text-sm sm:text-lg font-bold leading-tight truncate">
+          {/* h2, чтобы не конкурировать с главным h1 hero-блока (SEO — один h1 на страницу) */}
+          <h2 className="text-sm sm:text-lg font-bold leading-tight truncate">
             {baseRoute === "/" ? "Dashboard" : t(info?.labelKey as "live" | "matches" | "results" | "news")}
-          </h1>
+          </h2>
         </div>
 
         {/* Right: Actions */}

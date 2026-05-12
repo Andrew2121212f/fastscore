@@ -16,7 +16,11 @@
     "noLiveEvents": "Keine Live-Events",
     "noMatches": "Keine kommenden Spiele",
     "placeBet": "Wette platzieren",
-    "on": "auf"
+    "on": "auf",
+    "hero": {
+      "title": "Live-Ergebnisse. Echter Sport. An einem Ort.",
+      "subtitle": "Fußball, Basketball, Tennis und über 30 Sportarten — in Echtzeit aktualisiert."
+    }
   },
   "match": {
     "halfTime": "HZ",
