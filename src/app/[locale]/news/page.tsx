@@ -4,13 +4,13 @@ import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import { motion } from "framer-motion";
 import { Clock, ArrowRight, ExternalLink, Newspaper } from "lucide-react";
+import Link from "next/link";
 import EmptyState from "@/components/ui/empty-state";
 import { useNews } from "@/hooks/use-news";
 import { cn } from "@/lib/utils";
 import type { NewsArticle } from "@/types/news";
 import { NewsCardSkeleton } from "@/components/ui/skeletons";
 
-// Категории для фильтрации
 const CATEGORIES = [
   { key: "all", label: "All" },
   { key: "football", label: "Football" },
@@ -22,7 +22,8 @@ const CATEGORIES = [
 const fadeUp = {
   hidden: { opacity: 0, y: 12 },
   visible: (i: number) => ({
-    opacity: 1, y: 0,
+    opacity: 1,
+    y: 0,
     transition: { delay: i * 0.06, duration: 0.35, ease: "easeOut" as const },
   }),
 };
@@ -34,6 +35,36 @@ function formatNewsDate(dateStr: string): string {
   } catch {
     return dateStr;
   }
+}
+
+/**
+ * Решает куда вести по клику на статью:
+ *  - internal (Sheets-статьи с slug) → /[locale]/news/[slug]
+ *  - external (NewsData.io / промо) → внешний URL во вкладке
+ */
+function ArticleLink({
+  article,
+  locale,
+  className,
+  children,
+}: {
+  article: NewsArticle;
+  locale: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  if (!article.isExternal && article.slug) {
+    return (
+      <Link href={`/${locale}/news/${article.slug}`} className={className}>
+        {children}
+      </Link>
+    );
+  }
+  return (
+    <a href={article.url} target="_blank" rel="noopener noreferrer" className={className}>
+      {children}
+    </a>
+  );
 }
 
 export default function NewsPage() {
@@ -66,10 +97,8 @@ export default function NewsPage() {
         ))}
       </div>
 
-      {/* Загрузка */}
       {isLoading ? (
         <div className="space-y-4">
-          {/* Featured skeleton */}
           <div className="card overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2">
               <div className="skeleton aspect-video lg:min-h-64" />
@@ -85,7 +114,6 @@ export default function NewsPage() {
               </div>
             </div>
           </div>
-          {/* Grid skeleton */}
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
               <NewsCardSkeleton key={i} index={i} />
@@ -103,14 +131,22 @@ export default function NewsPage() {
               animate={{ opacity: 1, y: 0 }}
               className="card card-interactive overflow-hidden cursor-pointer group"
             >
-              <a href={featured.url} target="_blank" rel="noopener noreferrer" className="grid grid-cols-1 lg:grid-cols-2">
+              <ArticleLink
+                article={featured}
+                locale={locale}
+                className="grid grid-cols-1 lg:grid-cols-2"
+              >
                 <div className="relative aspect-video lg:aspect-auto lg:min-h-64 overflow-hidden bg-surface">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={featured.imageUrl}
                     alt={featured.title}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
-                    onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1461896836934-bd45ba47c285?w=800&h=500&fit=crop"; }}
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src =
+                        "https://images.unsplash.com/photo-1461896836934-bd45ba47c285?w=800&h=500&fit=crop";
+                    }}
                   />
                   <div className="absolute top-3 left-3">
                     <span className="px-2.5 py-1 bg-brand-orange text-white text-xs font-bold rounded-lg">
@@ -124,9 +160,7 @@ export default function NewsPage() {
                       {featured.category}
                     </span>
                     <span className="text-xs text-text-muted">{formatNewsDate(featured.publishedAt)}</span>
-                    {featured.source && (
-                      <span className="text-xs text-text-muted">{featured.source}</span>
-                    )}
+                    {featured.source && <span className="text-xs text-text-muted">{featured.source}</span>}
                   </div>
                   <h2 className="text-base sm:text-lg font-extrabold mb-2 group-hover:text-brand-orange transition-colors leading-tight">
                     {featured.title}
@@ -136,16 +170,23 @@ export default function NewsPage() {
                   </p>
                   <div className="flex items-center gap-1.5 text-xs font-bold text-brand-orange">
                     {t("readMore")}
-                    <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                    {featured.isExternal ? (
+                      <ExternalLink className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                    ) : (
+                      <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                    )}
                   </div>
                 </div>
-              </a>
+              </ArticleLink>
             </motion.article>
           )}
 
-
           {/* Article Grid */}
-          <motion.div initial="hidden" animate="visible" className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
+          >
             {rest.map((article: NewsArticle, i: number) => (
               <motion.article
                 key={article.id}
@@ -153,21 +194,24 @@ export default function NewsPage() {
                 custom={i}
                 className="card card-interactive overflow-hidden group cursor-pointer relative"
               >
-                <a href={article.url} target={article.isPromo ? "_blank" : "_self"} rel="noopener noreferrer">
+                <ArticleLink article={article} locale={locale} className="block">
                   <div className="relative aspect-video overflow-hidden bg-surface">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={article.imageUrl}
                       alt={article.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
-                      onError={(e) => { (e.target as HTMLImageElement).src = `https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&h=400&fit=crop`; }}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=600&h=400&fit=crop";
+                      }}
                     />
                     <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
                       <span className="px-2 py-0.5 bg-white/90 backdrop-blur-sm rounded-md text-xs font-bold text-brand-orange">
                         {article.category}
                       </span>
                     </div>
-                    {/* Нативный бейдж Sponsored для промо */}
                     {article.isPromo && (
                       <span className="absolute bottom-2 right-2 px-1.5 py-0.5 text-[10px] font-medium text-white/70 bg-black/40 backdrop-blur-sm rounded">
                         Sponsored
@@ -183,16 +227,14 @@ export default function NewsPage() {
                     <h3 className="text-sm font-bold leading-snug mb-1.5 group-hover:text-brand-orange transition-colors line-clamp-2">
                       {article.title}
                     </h3>
-                    <p className="text-xs text-text-muted leading-relaxed line-clamp-2">
-                      {article.excerpt}
-                    </p>
+                    <p className="text-xs text-text-muted leading-relaxed line-clamp-2">{article.excerpt}</p>
                     {article.isPromo && (
                       <div className="flex items-center gap-1 mt-2 text-xs font-semibold text-brand-orange">
                         Learn more <ExternalLink className="h-3 w-3" />
                       </div>
                     )}
                   </div>
-                </a>
+                </ArticleLink>
               </motion.article>
             ))}
           </motion.div>

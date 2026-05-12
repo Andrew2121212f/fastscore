@@ -16,6 +16,8 @@ export const PROMO_NEWS: NewsArticle[] = [
     category: "Promotion",
     publishedAt: new Date().toISOString(),
     isPromo: true,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "promo-2",
@@ -27,6 +29,8 @@ export const PROMO_NEWS: NewsArticle[] = [
     category: "Promotion",
     publishedAt: new Date().toISOString(),
     isPromo: true,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "promo-3",
@@ -38,6 +42,8 @@ export const PROMO_NEWS: NewsArticle[] = [
     category: "Promotion",
     publishedAt: new Date().toISOString(),
     isPromo: true,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "promo-4",
@@ -49,6 +55,8 @@ export const PROMO_NEWS: NewsArticle[] = [
     category: "Promotion",
     publishedAt: new Date().toISOString(),
     isPromo: true,
+    isExternal: true,
+    slug: "",
   },
 ];
 

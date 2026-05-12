@@ -38,6 +38,8 @@ const FALLBACK_ARTICLES: NewsArticle[] = [
     category: "Football",
     publishedAt: "2026-03-20T10:00:00Z",
     isPromo: false,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "fb-2",
@@ -49,6 +51,8 @@ const FALLBACK_ARTICLES: NewsArticle[] = [
     category: "Basketball",
     publishedAt: "2026-03-19T10:00:00Z",
     isPromo: false,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "fb-3",
@@ -60,6 +64,8 @@ const FALLBACK_ARTICLES: NewsArticle[] = [
     category: "Football",
     publishedAt: "2026-03-18T10:00:00Z",
     isPromo: false,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "fb-4",
@@ -71,6 +77,8 @@ const FALLBACK_ARTICLES: NewsArticle[] = [
     category: "Tennis",
     publishedAt: "2026-03-17T10:00:00Z",
     isPromo: false,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "fb-5",
@@ -82,6 +90,8 @@ const FALLBACK_ARTICLES: NewsArticle[] = [
     category: "Hockey",
     publishedAt: "2026-03-16T10:00:00Z",
     isPromo: false,
+    isExternal: true,
+    slug: "",
   },
   {
     id: "fb-6",
@@ -93,6 +103,8 @@ const FALLBACK_ARTICLES: NewsArticle[] = [
     category: "General",
     publishedAt: "2026-03-15T10:00:00Z",
     isPromo: false,
+    isExternal: true,
+    slug: "",
   },
 ];
 
@@ -189,6 +201,8 @@ export async function fetchSportsNews(options: FetchNewsOptions = {}): Promise<N
       category: mapCategory(item.category || []),
       publishedAt: item.pubDate || new Date().toISOString(),
       isPromo: false,
+    isExternal: true,
+    slug: "",
     }));
 
     // Если API вернул мало — дополняем fallback-статьями
