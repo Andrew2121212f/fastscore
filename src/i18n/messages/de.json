@@ -40,6 +40,22 @@
       "cancelled": "Abgesagt",
       "interrupted": "Unterbrochen",
       "var": "VAR-Überprüfung"
+    },
+    "detail": {
+      "kickoffIn": "Anpfiff in",
+      "startsAt": "Beginnt um",
+      "currentPeriod": "Periode",
+      "matchTime": "Spielzeit",
+      "score": "Spielstand",
+      "betCta": "Auf Vivat Sport wetten",
+      "tabs": {
+        "overview": "Übersicht",
+        "h2h": "Direktvergleich",
+        "stats": "Statistiken"
+      },
+      "notFound": "Spiel nicht gefunden",
+      "errorLoading": "Spieldaten konnten nicht geladen werden",
+      "loading": "Spiel wird geladen…"
     }
   },
   "sport": {

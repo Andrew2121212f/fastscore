@@ -40,6 +40,22 @@
       "cancelled": "Geannuleerd",
       "interrupted": "Onderbroken",
       "var": "VAR-controle"
+    },
+    "detail": {
+      "kickoffIn": "Aftrap over",
+      "startsAt": "Begint om",
+      "currentPeriod": "Periode",
+      "matchTime": "Speeltijd",
+      "score": "Score",
+      "betCta": "Wedden bij Vivat Sport",
+      "tabs": {
+        "overview": "Overzicht",
+        "h2h": "Onderlinge duels",
+        "stats": "Statistieken"
+      },
+      "notFound": "Wedstrijd niet gevonden",
+      "errorLoading": "Kon wedstrijddata niet laden",
+      "loading": "Wedstrijd laden…"
     }
   },
   "sport": {
