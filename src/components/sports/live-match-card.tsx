@@ -73,12 +73,9 @@ export default function LiveMatchCard({ event, index = 0 }: Props) {
             </span>
           </div>
         )}
-
-        {event.oddsLocalization && event.oddsLocalization.length > 0 && (
-          <span className="text-xs text-text-muted font-mono">
-            {event.oddsLocalization[0]?.oddsMarket?.toFixed(2)}
-          </span>
-        )}
+        <span className="text-xs text-text-muted font-medium truncate max-w-[120px]">
+          {event.tournamentNameLocalization}
+        </span>
       </div>
     </motion.div>
   );

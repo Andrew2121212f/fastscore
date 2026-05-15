@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowLeft, Calendar, User } from "lucide-react";
 import { fetchSheetArticleBySlug } from "@/lib/sheets-news";
 import ArticleContent from "@/components/news/article-content";
+import { locales, type Locale } from "@/i18n/config";
+import { SITE_URL, SITE_NAME, ogLocaleMap } from "@/lib/seo";
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -12,7 +14,8 @@ interface PageProps {
 /**
  * SEO metadata формируется на сервере из данных Sheets —
  * title, description, og:image. Это даёт нормальный preview в соцсетях
- * и индексацию Google.
+ * и индексацию Google. Дополнительно проставляем canonical и hreflang
+ * на все локали — статья одна и та же, просто переведена.
  */
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
@@ -20,12 +23,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!article) return { title: "Article not found" };
 
+  const url = `${SITE_URL}/${locale}/news/${slug}`;
+  const languages = Object.fromEntries(
+    locales.map((l) => [l, `${SITE_URL}/${l}/news/${slug}`])
+  );
+  languages["x-default"] = `${SITE_URL}/en/news/${slug}`;
+
   return {
     title: article.title,
     description: article.excerpt,
+    alternates: {
+      canonical: url,
+      languages,
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
+      url,
+      siteName: SITE_NAME,
+      locale: ogLocaleMap[locale as Locale] ?? "en_GB",
       images: article.imageUrl ? [{ url: article.imageUrl }] : undefined,
       type: "article",
       publishedTime: article.publishedAt,
@@ -58,8 +74,35 @@ export default async function NewsArticlePage({ params }: PageProps) {
 
   if (!article) notFound();
 
+  // JSON-LD NewsArticle для богатых сниппетов Google.
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.publishedAt,
+    image: article.imageUrl ? [article.imageUrl] : undefined,
+    author: article.author
+      ? [{ "@type": "Person", name: article.author }]
+      : [{ "@type": "Organization", name: SITE_NAME }],
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.svg` },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/${locale}/news/${slug}`,
+    },
+    inLanguage: locale,
+  };
+
   return (
     <article className="max-w-3xl mx-auto space-y-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Назад к списку */}
       <Link
         href={`/${locale}/news`}

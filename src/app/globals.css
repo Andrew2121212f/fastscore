@@ -16,7 +16,13 @@
   --accent-red: #f87171;
   --accent-blue: #60a5fa;
   --accent-purple: #a78bfa;
-  --brand-orange: #22c55e;
+  /* VivatBet brand: lime + deep teal-green — точные цвета из SVG-логотипа.
+     --brand-orange — историческое имя переменной (используется ~200 раз
+     в классах bg-brand-orange/text-brand-orange/border-brand-orange).
+     Переименовать = рефакторить все компоненты; вместо этого меняем
+     значение под новый brand. */
+  --brand-orange: #a8cd0c;
+  --brand-dark: #044f4d;
   --glass-bg: rgba(255,255,255,0.05);
   --glass-border: rgba(255,255,255,0.1);
   --glass-blur: 20px;
@@ -46,7 +52,10 @@
   --accent-red: #ef4444;
   --accent-blue: #3b82f6;
   --accent-purple: #8b5cf6;
-  --brand-orange: #16a34a;
+  /* VivatBet brand для light-темы — чуть приглушённее, чтобы lime
+     не "горел" на белом фоне. */
+  --brand-orange: #82a000;
+  --brand-dark: #044f4d;
   --glass-bg: rgba(255,255,255,0.7);
   --glass-border: rgba(0,0,0,0.06);
   --glass-blur: 20px;
@@ -76,6 +85,7 @@
   --color-accent-blue: var(--accent-blue);
   --color-accent-purple: var(--accent-purple);
   --color-brand-orange: var(--brand-orange);
+  --color-brand-dark: var(--brand-dark);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }

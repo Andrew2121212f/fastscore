@@ -12,7 +12,7 @@ interface MatchRowProps {
 /**
  * Адаптивная строка матча.
  * Мобильный: вертикальный стек (команда 1 / команда 2 + счёт сбоку).
- * Десктоп: горизонтальный grid (команда 1 | счёт | команда 2 | коэффициенты).
+ * Десктоп: горизонтальный grid (команда 1 | счёт | команда 2).
  */
 export default function MatchRow({ event, mode }: MatchRowProps) {
   const isHT = event.gameStatus === 2;
@@ -94,19 +94,6 @@ export default function MatchRow({ event, mode }: MatchRowProps) {
         </div>
       </div>
 
-      {/* Коэффициенты — только десктоп */}
-      {event.oddsLocalization && event.oddsLocalization.length >= 3 && (
-        <div className="hidden lg:flex items-center gap-1 shrink-0">
-          {event.oddsLocalization.slice(0, 3).map((odd: any, i: number) => (
-            <span
-              key={i}
-              className="px-2.5 py-1 rounded-lg bg-surface text-xs font-mono font-bold text-text-secondary hover:bg-brand-orange/10 hover:text-brand-orange transition-all min-w-11 text-center"
-            >
-              {odd.oddsMarket?.toFixed(2)}
-            </span>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

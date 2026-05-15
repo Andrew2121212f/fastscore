@@ -1,16 +1,15 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import {
   Activity, Calendar, Trophy, Newspaper, Search,
-  Home, ChevronDown, Globe, Sun, Moon,
+  Home, ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { localeNames, type Locale } from "@/i18n/config";
-import { useTheme } from "@/components/theme-provider";
 import { SPORT_IDS } from "@/types/api";
 import SportIcon from "@/components/sports/sport-icon";
 import PromoBanner from "@/components/promo/promo-banner";
@@ -44,23 +43,10 @@ export default function Sidebar() {
   const tSport = useTranslations("sport");
   const locale = useLocale();
   const pathname = usePathname();
-  const { theme, toggle } = useTheme();
-  const [langOpen, setLangOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [sportsExpanded, setSportsExpanded] = useState(false);
-  const langRef = useRef<HTMLDivElement>(null);
 
   const pathnameWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
-
-  useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (langRef.current && !langRef.current.contains(e.target as Node)) {
-        setLangOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
 
   const isActive = (href: string) => {
     if (href === "") return pathnameWithoutLocale === "/";
@@ -71,12 +57,19 @@ export default function Sidebar() {
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="px-5 py-3.5 flex items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center gap-2.5 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-orange text-white font-extrabold text-sm shadow-md shadow-brand-orange/20">
-            FS
-          </div>
+        <Link href={`/${locale}`} className="flex items-center gap-2.5 group" aria-label="VivatBet">
+          {/* Квадратный mark VivatBet — SVG из /public/logo-mark.svg.
+              priority=true, чтобы лого подгружался первым (LCP/паттерн брендинга). */}
+          <Image
+            src="/logo-mark.svg"
+            alt=""
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-9 rounded-xl shadow-md shadow-brand-dark/30"
+          />
           <span className="text-lg font-bold tracking-tight">
-            Fast<span className="text-brand-orange">Score</span>
+            Vivat<span className="text-brand-orange">Bet</span>
           </span>
         </Link>
       </div>
@@ -166,50 +159,10 @@ export default function Sidebar() {
       {/* Spacer */}
       <div className="flex-1 min-h-2" />
 
-      {/* Bottom controls */}
+      {/* Bottom controls — переключатели темы/языка перенесены в шапку
+          (Topbar), чтобы пользователь находил их там, где привычно. В сайдбаре
+          оставляем только промо-баннер. */}
       <div className="px-4 pb-3 space-y-2">
-        {/* Theme + Language row */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={toggle}
-            className="flex h-9 w-9 items-center justify-center rounded-xl text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
-            aria-label="Toggle theme"
-          >
-            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
-
-          <div className="relative flex-1" ref={langRef}>
-            <button
-              onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-2 w-full px-3 py-2 rounded-xl text-sm font-medium text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
-            >
-              <Globe className="h-4 w-4" />
-              {locale.toUpperCase()}
-              <ChevronDown className={cn("h-3 w-3 ml-auto transition-transform", langOpen && "rotate-180")} />
-            </button>
-            {langOpen && (
-              <div className="absolute bottom-full left-0 mb-2 w-full bg-background border border-border rounded-xl p-1.5 shadow-xl animate-fade-up z-50">
-                {(Object.entries(localeNames) as [Locale, string][]).map(([code, name]) => (
-                  <Link
-                    key={code}
-                    href={`/${code}${pathnameWithoutLocale}`}
-                    onClick={() => setLangOpen(false)}
-                    className={cn(
-                      "flex items-center gap-2.5 w-full px-3 py-2 rounded-lg text-sm font-medium transition-colors",
-                      code === locale
-                        ? "bg-brand-orange/15 text-brand-orange"
-                        : "text-text-secondary hover:text-foreground hover:bg-surface-hover"
-                    )}
-                  >
-                    {name}
-                  </Link>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Промо-баннер — компактный вариант для сайдбара (h-24 = 96px) */}
         <PromoBanner variant={1} size="compact" className="rounded-xl" />
       </div>
     </div>

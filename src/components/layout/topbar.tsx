@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { Activity, Calendar, Trophy, Newspaper, Home, Bell, ExternalLink, X, Sun, Moon, Globe, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn, formatMatchTime } from "@/lib/utils";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { EXTERNAL_PLATFORM } from "@/lib/constants";
@@ -60,17 +61,32 @@ export default function Topbar() {
   return (
     <header className="sticky top-0 z-30 h-16 bg-background/80 border-b border-border backdrop-blur-xl">
       <div className="flex items-center justify-between h-full px-3 sm:px-6">
-        {/* Left: Page info */}
-        <div className="flex items-center gap-3">
+        {/* Left: brand + page info.
+            Mobile (sidebar скрыт): показываем лого VivatBet рядом с названием страницы,
+            чтобы бренд был виден везде.
+            Desktop (sidebar виден слева): показываем иконку контекста страницы
+            и название — лого уже в сайдбаре. */}
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          {/* Mobile-only: VivatBet mark */}
+          <Link
+            href={`/${locale}`}
+            aria-label="VivatBet"
+            className="lg:hidden flex h-8 w-8 items-center justify-center shrink-0"
+          >
+            <Image src="/logo-mark.svg" alt="" width={32} height={32} priority className="h-8 w-8 rounded-xl" />
+          </Link>
+
+          {/* Desktop-only: иконка текущей страницы */}
           <div className={cn(
-            "flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl shrink-0",
+            "hidden lg:flex h-9 w-9 items-center justify-center rounded-xl shrink-0",
             baseRoute === "/live" ? "bg-accent-green/10" : "bg-brand-orange/10"
           )}>
             <Icon className={cn(
-              "h-4 w-4 sm:h-[18px] sm:w-[18px]",
+              "h-[18px] w-[18px]",
               baseRoute === "/live" ? "text-accent-green" : "text-brand-orange"
             )} />
           </div>
+
           {/* h2, чтобы не конкурировать с главным h1 hero-блока (SEO — один h1 на страницу) */}
           <h2 className="text-sm sm:text-lg font-bold leading-tight truncate">
             {baseRoute === "/" ? "Dashboard" : t(info?.labelKey as "live" | "matches" | "results" | "news")}
@@ -78,11 +94,13 @@ export default function Topbar() {
         </div>
 
         {/* Right: Actions */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {liveCount > 0 && (
             <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-accent-green/10 border border-accent-green/20">
               <span className="flex h-2 w-2 rounded-full bg-accent-green animate-pulse-live" />
-              <span className="text-[11px] sm:text-xs font-bold text-accent-green">{liveCount} Live</span>
+              <span className="text-[11px] sm:text-xs font-bold text-accent-green leading-none">
+                {liveCount}<span className="hidden sm:inline"> Live</span>
+              </span>
             </div>
           )}
 
@@ -172,17 +190,17 @@ export default function Topbar() {
             )}
           </div>
 
-          {/* Тема — только на мобильном (на десктопе в сайдбаре) */}
+          {/* Тема — теперь в шапке на всех экранах (был дубль с сайдбаром). */}
           <button
             onClick={toggle}
-            className="lg:hidden flex h-9 w-9 items-center justify-center rounded-xl text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
+            className="flex h-9 w-9 items-center justify-center rounded-xl text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
 
-          {/* Язык — только на мобильном */}
-          <div className="relative lg:hidden" ref={langRef}>
+          {/* Язык — теперь в шапке на всех экранах */}
+          <div className="relative" ref={langRef}>
             <button
               onClick={() => setLangOpen(!langOpen)}
               className="flex items-center gap-1 px-2 py-2 rounded-xl text-xs font-bold text-text-secondary hover:text-foreground hover:bg-surface-hover transition-all"

@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getLiveEventDetail, getPrematchEventDetail } from "@/lib/api-client";
 import type { EventDetailResponse } from "@/types/api";
 import EventClient from "./event-client";
+import { locales, type Locale } from "@/i18n/config";
+import { SITE_URL, SITE_NAME, ogLocaleMap } from "@/lib/seo";
 
 type EventType = "live" | "prematch";
 
@@ -57,14 +59,34 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   const team1 = data.opponent1NameLocalization || "Team 1";
   const team2 = data.opponent2NameLocalization || "Team 2";
   const tournament = data.tournamentNameLocalization || "";
-  const title = `${team1} vs ${team2}`;
-  const description = tournament ? `${title} — ${tournament}` : title;
+  const title = `${team1} vs ${team2}${tournament ? ` — ${tournament}` : ""}`;
+  const description = tournament
+    ? `${team1} vs ${team2} live score, statistics and updates. ${tournament}.`
+    : `${team1} vs ${team2} live score, statistics and updates.`;
+
+  const url = `${SITE_URL}/${locale}/events/${id}`;
+  const languages = Object.fromEntries(
+    locales.map((l) => [l, `${SITE_URL}/${l}/events/${id}`])
+  );
+  languages["x-default"] = `${SITE_URL}/en/events/${id}`;
 
   return {
     title,
     description,
-    openGraph: { title, description },
-    twitter: { title, description },
+    alternates: { canonical: url, languages },
+    openGraph: {
+      title,
+      description,
+      url,
+      siteName: SITE_NAME,
+      locale: ogLocaleMap[locale as Locale] ?? "en_GB",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
   };
 }
 
@@ -77,5 +99,38 @@ export default async function EventDetailPage({ params, searchParams }: PageProp
   const initialData = await fetchEventDetail(sportEventId, type, locale);
   if (!initialData) notFound();
 
-  return <EventClient id={id} type={type} locale={locale} initialData={initialData} />;
+  // JSON-LD SportsEvent — даёт Google расширенный сниппет с командами и временем.
+  const { data } = initialData;
+  const eventJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    name: `${data.opponent1NameLocalization} vs ${data.opponent2NameLocalization}`,
+    startDate: data.startDate,
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode",
+    location: {
+      "@type": "VirtualLocation",
+      url: `${SITE_URL}/${locale}/events/${id}`,
+    },
+    competitor: [
+      { "@type": "SportsTeam", name: data.opponent1NameLocalization },
+      { "@type": "SportsTeam", name: data.opponent2NameLocalization },
+    ],
+    ...(data.tournamentNameLocalization && {
+      superEvent: {
+        "@type": "SportsEvent",
+        name: data.tournamentNameLocalization,
+      },
+    }),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
+      />
+      <EventClient id={id} type={type} locale={locale} initialData={initialData} />
+    </>
+  );
 }
