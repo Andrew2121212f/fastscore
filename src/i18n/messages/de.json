@@ -20,7 +20,8 @@
     "hero": {
       "title": "Live-Ergebnisse. Echter Sport. An einem Ort.",
       "subtitle": "Fußball, Basketball, Tennis und über 30 Sportarten — in Echtzeit aktualisiert."
-    }
+    },
+    "worldCup": "Weltmeisterschaft"
   },
   "match": {
     "halfTime": "HZ",
@@ -94,8 +95,7 @@
     "terms": "Nutzungsbedingungen",
     "cookies": "Cookie-Richtlinie",
     "rights": "Alle Rechte vorbehalten",
-    "disclaimer": "VivatBet stellt Sportdaten nur zu Informationszwecken bereit. Auf dieser Seite vermitteln wir keine Wetten oder Glücksspiele.",
-    "responsible": "18+ | Spielen Sie verantwortungsvoll"
+    "disclaimer": "VivatBet stellt Sportdaten nur zu Informationszwecken bereit. Auf dieser Seite vermitteln wir keine Wetten oder Glücksspiele."
   },
   "notFound": {
     "title": "Seite nicht gefunden",

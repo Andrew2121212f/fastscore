@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations, useLocale } from "next-intl";
 import {
-  ArrowRight, Newspaper, Activity, ChevronDown, Calendar, CalendarClock,
+  ArrowRight, Newspaper, Activity, ChevronDown, Calendar, CalendarClock, Trophy,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import EmptyState from "@/components/ui/empty-state";
@@ -22,6 +22,9 @@ import { getLocalLeagueLogo } from "@/lib/league-logos";
 import { useTheme } from "@/components/theme-provider";
 import { TournamentGroupSkeleton } from "@/components/ui/skeletons";
 import HeroVideo from "@/components/home/hero-video";
+
+// Ключевые слова турнира ЧМ по футболу на языках сайта (en/fr/de/nl) + FIFA.
+const WC_KEYWORDS = ["world cup", "coupe du monde", "weltmeisterschaft", "wereldkampioenschap", "wereldbeker", "copa mundial", "mondial", "fifa"];
 
 export default function HomeClient() {
   const t = useTranslations("home");
@@ -43,8 +46,20 @@ export default function HomeClient() {
   // показываются "старые" демо-матчи когда API пуст.
   const liveEvents = (liveData?.items || []) as any[];
   const prematchEvents = (prematchData?.items || []) as any[];
-  const groupedPrematch = groupBy(prematchEvents, (e: any) => e.tournamentNameLocalization || "Other");
-  const groupedLive = groupBy(liveEvents, (e: any) => e.tournamentNameLocalization || "Other");
+
+  // ЧМ по футболу (sportId 1) — закреплённый блок сверху. Матчи ЧМ убираем из
+  // общих списков Live/Today, чтобы не дублировались.
+  const isWorldCup = (e: any) =>
+    e?.sportId === 1 &&
+    WC_KEYWORDS.some((k) => (e?.tournamentNameLocalization || "").toLowerCase().includes(k));
+  const wcLive = liveEvents.filter(isWorldCup);
+  const wcPrematch = prematchEvents.filter(isWorldCup);
+  const hasWorldCup = wcLive.length > 0 || wcPrematch.length > 0;
+  const liveRest = liveEvents.filter((e) => !isWorldCup(e));
+  const prematchRest = prematchEvents.filter((e) => !isWorldCup(e));
+
+  const groupedPrematch = groupBy(prematchRest, (e: any) => e.tournamentNameLocalization || "Other");
+  const groupedLive = groupBy(liveRest, (e: any) => e.tournamentNameLocalization || "Other");
 
   // Сортируем турниры по приоритету (Бельгия → Франция → Германия → Европа → ... → Россия в конце)
   const sortedPrematch = sortTournamentEntries(Object.entries(groupedPrematch));
@@ -61,13 +76,37 @@ export default function HomeClient() {
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         {/* Left: Live + Upcoming */}
         <div className="xl:col-span-2 space-y-5">
+          {/* ЧМ по футболу — закреплённый блок сверху */}
+          {mounted && hasWorldCup && (
+            <div className="card overflow-hidden border-brand-orange/30">
+              <div className="px-4 py-2.5 border-b border-border flex items-center gap-2 bg-brand-orange/10">
+                <Trophy className="h-4 w-4 text-brand-orange" />
+                <span className="text-sm font-bold">{t("worldCup")}</span>
+                {wcLive.length > 0 && (
+                  <span className="flex items-center gap-1 text-xs font-bold text-accent-green ml-auto">
+                    <span className="flex h-2 w-2 rounded-full bg-accent-green animate-pulse-live" />
+                    {wcLive.length} live
+                  </span>
+                )}
+              </div>
+              <div className="divide-y divide-border">
+                {wcLive.slice(0, 6).map((event: any) => (
+                  <MatchRow key={event.sportEventId} event={event} mode="live" />
+                ))}
+                {wcPrematch.slice(0, Math.max(0, 6 - wcLive.length)).map((event: any) => (
+                  <MatchRow key={event.sportEventId} event={event} mode="prematch" />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Live Now */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="flex h-2.5 w-2.5 rounded-full bg-accent-green animate-pulse-live" />
               <h2 className="text-base font-bold">{t("liveNow")}</h2>
-              {liveEvents.length > 0 && (
-                <span className="text-xs font-bold text-accent-green bg-accent-green/10 px-2 py-0.5 rounded-lg">{liveEvents.length} live</span>
+              {liveRest.length > 0 && (
+                <span className="text-xs font-bold text-accent-green bg-accent-green/10 px-2 py-0.5 rounded-lg">{liveRest.length} live</span>
               )}
             </div>
             <Link href={`/${locale}/live`} className="flex items-center gap-1 text-xs font-semibold text-brand-orange hover:underline">
@@ -77,7 +116,7 @@ export default function HomeClient() {
 
           {!mounted || liveLoading ? (
             <div className="space-y-3">{[...Array(2)].map((_, i) => <TournamentGroupSkeleton key={i} rows={3} />)}</div>
-          ) : liveEvents.length === 0 ? (
+          ) : liveRest.length === 0 ? (
             <EmptyState icon={Activity} title={t("noLiveEvents")} description="Check back soon — matches update in real time" />
           ) : (
             <div className="space-y-3">
@@ -109,7 +148,7 @@ export default function HomeClient() {
 
           {!mounted || prematchLoading ? (
             <div className="space-y-3">{[...Array(2)].map((_, i) => <TournamentGroupSkeleton key={i} rows={4} />)}</div>
-          ) : prematchEvents.length === 0 ? (
+          ) : prematchRest.length === 0 ? (
             <EmptyState icon={CalendarClock} title="No upcoming matches" description="Match schedule updates throughout the day" />
           ) : (
             <div className="space-y-3">
@@ -145,12 +184,9 @@ export default function HomeClient() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {newsArticles.map((article: NewsArticle) => {
-                  // Internal Sheets-статьи → /[locale]/news/[slug], внешние → новая вкладка
-                  const isInternal = !article.isExternal && article.slug;
-                  const href = isInternal ? `/${locale}/news/${article.slug}` : article.url;
-                  const linkProps = isInternal
-                    ? {}
-                    : { target: "_blank" as const, rel: "noopener noreferrer" };
+                  // Все статьи открываем в отдельной вкладке (по требованию)
+                  const href = !article.isExternal && article.slug ? `/${locale}/news/${article.slug}` : article.url;
+                  const linkProps = { target: "_blank" as const, rel: "noopener noreferrer" };
                   return (
                   <a
                     key={article.id}

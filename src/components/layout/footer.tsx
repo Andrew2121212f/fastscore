@@ -1,6 +1,6 @@
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
-import Image from "next/image";
+import BrandLogo from "@/components/layout/brand-logo";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -37,24 +37,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <Link href={`/${locale}`} className="flex items-center gap-2.5 mb-4" aria-label="VivatBet">
-              <Image
-                src="/logo-mark.svg"
-                alt=""
-                width={32}
-                height={32}
-                className="h-8 w-8 rounded-xl"
-              />
-              <span className="text-lg font-bold tracking-tight">
-                Vivat<span className="text-brand-orange">Bet</span>
-              </span>
+            <Link href={`/${locale}`} className="flex items-center mb-4" aria-label="VivatBetSport">
+              <BrandLogo height={32} />
             </Link>
             <p className="text-sm text-text-muted leading-relaxed max-w-xs mb-4">
               {t("disclaimer")}
             </p>
-            <span className="inline-block text-xs font-semibold text-text-muted bg-surface px-3 py-1 rounded-full border border-border">
-              {t("responsible")}
-            </span>
           </div>
 
           {/* Quick Links */}

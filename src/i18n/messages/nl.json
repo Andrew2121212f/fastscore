@@ -20,7 +20,8 @@
     "hero": {
       "title": "Live scores. Echte sport. Op één plek.",
       "subtitle": "Voetbal, basketbal, tennis en meer dan 30 sporten — realtime bijgewerkt."
-    }
+    },
+    "worldCup": "WK Voetbal"
   },
   "match": {
     "halfTime": "HT",
@@ -94,8 +95,7 @@
     "terms": "Gebruiksvoorwaarden",
     "cookies": "Cookiebeleid",
     "rights": "Alle rechten voorbehouden",
-    "disclaimer": "VivatBet biedt sportgegevens uitsluitend ter informatie. Op deze site faciliteren wij geen gokken of weddenschappen.",
-    "responsible": "18+ | Gok verantwoord"
+    "disclaimer": "VivatBet biedt sportgegevens uitsluitend ter informatie. Op deze site faciliteren wij geen gokken of weddenschappen."
   },
   "notFound": {
     "title": "Pagina niet gevonden",

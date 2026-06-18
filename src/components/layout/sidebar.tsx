@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import BrandLogo from "@/components/layout/brand-logo";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import {
@@ -57,20 +57,8 @@ export default function Sidebar() {
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="px-5 py-3.5 flex items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center gap-2.5 group" aria-label="VivatBet">
-          {/* Квадратный mark VivatBet — SVG из /public/logo-mark.svg.
-              priority=true, чтобы лого подгружался первым (LCP/паттерн брендинга). */}
-          <Image
-            src="/logo-mark.svg"
-            alt=""
-            width={36}
-            height={36}
-            priority
-            className="h-9 w-9 rounded-xl shadow-md shadow-brand-dark/30"
-          />
-          <span className="text-lg font-bold tracking-tight">
-            Vivat<span className="text-brand-orange">Bet</span>
-          </span>
+        <Link href={`/${locale}`} className="flex items-center group" aria-label="VivatBetSport">
+          <BrandLogo height={34} />
         </Link>
       </div>
 

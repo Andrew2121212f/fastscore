@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { Activity, Calendar, Trophy, Newspaper, Home, Bell, ExternalLink, X, Sun, Moon, Globe, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import Image from "next/image";
+import BrandLogo from "@/components/layout/brand-logo";
 import { cn, formatMatchTime } from "@/lib/utils";
 import { useLiveEvents } from "@/hooks/use-live-events";
 import { EXTERNAL_PLATFORM } from "@/lib/constants";
@@ -70,10 +70,10 @@ export default function Topbar() {
           {/* Mobile-only: VivatBet mark */}
           <Link
             href={`/${locale}`}
-            aria-label="VivatBet"
-            className="lg:hidden flex h-8 w-8 items-center justify-center shrink-0"
+            aria-label="VivatBetSport"
+            className="lg:hidden flex items-center shrink-0"
           >
-            <Image src="/logo-mark.svg" alt="" width={32} height={32} priority className="h-8 w-8 rounded-xl" />
+            <BrandLogo height={26} />
           </Link>
 
           {/* Desktop-only: иконка текущей страницы */}

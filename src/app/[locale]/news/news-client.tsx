@@ -55,7 +55,7 @@ function ArticleLink({
 }) {
   if (!article.isExternal && article.slug) {
     return (
-      <Link href={`/${locale}/news/${article.slug}`} className={className}>
+      <Link href={`/${locale}/news/${article.slug}`} target="_blank" rel="noopener noreferrer" className={className}>
         {children}
       </Link>
     );

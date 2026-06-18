@@ -20,7 +20,8 @@
     "hero": {
       "title": "Scores en direct. Sport réel. Un seul endroit.",
       "subtitle": "Football, basketball, tennis et plus de 30 sports — mis à jour en temps réel."
-    }
+    },
+    "worldCup": "Coupe du Monde"
   },
   "match": {
     "halfTime": "MT",
@@ -94,8 +95,7 @@
     "terms": "Conditions d'utilisation",
     "cookies": "Politique de cookies",
     "rights": "Tous droits réservés",
-    "disclaimer": "VivatBet fournit des données sportives à titre informatif uniquement. Nous ne facilitons ni les paris ni les jeux d'argent sur ce site.",
-    "responsible": "18+ | Jouez responsablement"
+    "disclaimer": "VivatBet fournit des données sportives à titre informatif uniquement. Nous ne facilitons ni les paris ni les jeux d'argent sur ce site."
   },
   "notFound": {
     "title": "Page introuvable",

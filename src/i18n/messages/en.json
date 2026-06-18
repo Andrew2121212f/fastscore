@@ -20,7 +20,8 @@
     "hero": {
       "title": "Live Scores. Real Sport. One Place.",
       "subtitle": "Football, basketball, tennis and 30+ sports — updated every few seconds."
-    }
+    },
+    "worldCup": "World Cup"
   },
   "match": {
     "halfTime": "HT",
@@ -94,8 +95,7 @@
     "terms": "Terms of Service",
     "cookies": "Cookie Policy",
     "rights": "All rights reserved",
-    "disclaimer": "VivatBet provides sports data for informational purposes only. We do not facilitate betting or gambling on this site.",
-    "responsible": "18+ | Gamble responsibly"
+    "disclaimer": "VivatBet provides sports data for informational purposes only. We do not facilitate betting or gambling on this site."
   },
   "notFound": {
     "title": "Page Not Found",

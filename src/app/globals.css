@@ -288,3 +288,8 @@ body {
     min-height: 44px;
   }
 }
+
+/* ===== ЛОГОТИП: тёмный вариант по умолчанию, светлый — для светлой темы ===== */
+.brand-logo-light { display: none; }
+[data-theme="light"] .brand-logo-dark { display: none; }
+[data-theme="light"] .brand-logo-light { display: inline-block; }
