@@ -46,7 +46,7 @@
       "currentPeriod": "Période",
       "matchTime": "Temps de match",
       "score": "Score",
-      "betCta": "Pariez sur Vivat Sport",
+      "betCta": "Pariez sur FastScore",
       "tabs": {
         "overview": "Aperçu",
         "h2h": "Confrontations",
@@ -94,7 +94,7 @@
     "terms": "Conditions d'utilisation",
     "cookies": "Politique de cookies",
     "rights": "Tous droits réservés",
-    "disclaimer": "VivatBet fournit des données sportives à titre informatif uniquement. Nous ne facilitons ni les paris ni les jeux d'argent sur ce site.",
+    "disclaimer": "FastScore fournit des données sportives à titre informatif uniquement. Nous ne facilitons ni les paris ni les jeux d'argent sur ce site.",
     "responsible": "18+ | Jouez responsablement"
   },
   "notFound": {
@@ -103,10 +103,10 @@
     "backHome": "Retour à l'accueil"
   },
   "about": {
-    "title": "À propos de VivatBet",
+    "title": "À propos de FastScore",
     "subtitle": "Votre source fiable pour les scores en direct, le calendrier et les résultats dans plus de 500 ligues.",
     "mission": "Notre Mission",
-    "missionText": "VivatBet fournit des données sportives en temps réel pour aider les fans à rester informés grâce aux scores en direct, statistiques de match et informations de tournois.",
+    "missionText": "FastScore fournit des données sportives en temps réel pour aider les fans à rester informés grâce aux scores en direct, statistiques de match et informations de tournois.",
     "features": "Ce que nous offrons",
     "feature1Title": "Scores en direct",
     "feature1Text": "Scores en temps réel pour le football, basketball, tennis, hockey et plus de 30 sports.",
@@ -116,22 +116,22 @@
     "feature3Text": "Calendrier complet des rencontres à venir, horaires de coup d'envoi et contexte des tournois pour toutes les ligues couvertes.",
     "feature4Title": "500+ Ligues",
     "feature4Text": "De la Champions League aux divisions locales — nous couvrons les compétitions du monde entier.",
-    "poweredBy": "Propulsé par Vivat Sport",
-    "poweredByText": "VivatBet est construit sur la plateforme Vivat Sport, fournissant des informations sportives fiables pour le marché belge et européen.",
+    "poweredBy": "Propulsé par FastScore",
+    "poweredByText": "FastScore est construit sur la plateforme FastScore, fournissant des informations sportives fiables pour le marché belge et européen.",
     "termsTitle": "Conditions d'utilisation",
-    "termsIntro": "En utilisant VivatBet Sport (fastscore.vercel.app) vous acceptez nos Conditions d'utilisation. Le site fournit des informations sportives à titre informatif uniquement — il ne facilite ni les paris ni les jeux d'argent. Toute activité de pari se déroule exclusivement sur la plateforme principale Vivat Sport.",
+    "termsIntro": "En utilisant FastScore (fastscore.vercel.app) vous acceptez nos Conditions d'utilisation. Le site fournit des informations sportives à titre informatif uniquement — il ne facilite ni les paris ni les jeux d'argent. Toute activité de pari se déroule exclusivement sur la plateforme principale FastScore.",
     "termsHighlight1Title": "Utilisation du service",
     "termsHighlight1Text": "Informations destinées aux fans de sport uniquement. Utilisateurs 18+. Données issues de sources tierces — vérifiez auprès des sources officielles avant toute décision.",
     "termsHighlight2Title": "Propriété intellectuelle",
-    "termsHighlight2Text": "Tout le contenu est la propriété exclusive de VivatBet Sport ou de ses partenaires, protégé par le droit d'auteur belge et international.",
+    "termsHighlight2Text": "Tout le contenu est la propriété exclusive de FastScore ou de ses partenaires, protégé par le droit d'auteur belge et international.",
     "termsHighlight3Title": "Jeu responsable",
     "termsHighlight3Text": "Nous nous engageons pour le jeu responsable. En cas de difficultés liées au jeu, contactez les services belges d'aide ou bedenkjekansen.be.",
     "termsReadMore": "Lire les Conditions complètes"
   },
   "privacy": {
-    "title": "Politique de confidentialité pour VivatBetSport",
+    "title": "Politique de confidentialité pour FastScore",
     "lastUpdated": "Dernière mise à jour",
-    "intro": "VivatBet Sport accorde la plus haute importance à la protection de vos données personnelles. Cette politique décrit comment nous collectons, utilisons et protégeons vos informations sur fastscore.vercel.app, conformément au RGPD et à la loi belge du 30 juillet 2018. Responsable du traitement : VivatBet Sport, Bruxelles — info@vivatbetsport.be.",
+    "intro": "FastScore accorde la plus haute importance à la protection de vos données personnelles. Cette politique décrit comment nous collectons, utilisons et protégeons vos informations sur fastscore.vercel.app, conformément au RGPD et à la loi belge du 30 juillet 2018. Responsable du traitement : FastScore, Bruxelles — info@fastscore.be.",
     "section1Title": "Données collectées",
     "section1Text": "Automatiquement : adresse IP (anonymisée), type de navigateur, OS, langue, pages visitées, durée de session, source de référence, type d'appareil. Via le formulaire de contact : nom, e-mail, objet et contenu du message. Nous ne collectons aucune donnée bancaire ni sensible (santé, opinions, religion).",
     "section2Title": "Utilisation des données",
@@ -141,33 +141,33 @@
     "section4Title": "Services tiers",
     "section4Text": "Vos données peuvent être communiquées à nos prestataires techniques (hébergement Vercel, analytics) sous accord de confidentialité, et aux autorités en cas d'obligation légale. Aucun transfert hors EEE sans garanties appropriées (clauses contractuelles types de la Commission européenne).",
     "section5Title": "Vos droits RGPD",
-    "section5Text": "À tout moment vous pouvez : accéder à vos données, les rectifier, les effacer (droit à l'oubli), limiter le traitement, demander la portabilité, vous opposer, retirer votre consentement, déposer plainte auprès de l'APD (autoriteprotectiondonnees.be). Pour exercer ces droits : info@vivatbetsport.be avec justificatif d'identité — réponse sous 30 jours.",
+    "section5Text": "À tout moment vous pouvez : accéder à vos données, les rectifier, les effacer (droit à l'oubli), limiter le traitement, demander la portabilité, vous opposer, retirer votre consentement, déposer plainte auprès de l'APD (autoriteprotectiondonnees.be). Pour exercer ces droits : info@fastscore.be avec justificatif d'identité — réponse sous 30 jours.",
     "section6Title": "Sécurité & contact",
-    "section6Text": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées : chiffrement HTTPS, accès restreint, mises à jour de sécurité. Aucune transmission Internet n'est totalement sûre — nous ne pouvons garantir une sécurité absolue. Questions : info@vivatbetsport.be."
+    "section6Text": "Nous mettons en œuvre des mesures techniques et organisationnelles appropriées : chiffrement HTTPS, accès restreint, mises à jour de sécurité. Aucune transmission Internet n'est totalement sûre — nous ne pouvons garantir une sécurité absolue. Questions : info@fastscore.be."
   },
   "terms": {
     "title": "Conditions d'utilisation",
     "lastUpdated": "Dernière mise à jour",
-    "intro": "Bienvenue sur VivatBet Sport. En accédant à ce site (fastscore.vercel.app) vous acceptez d'être lié par les présentes Conditions d'utilisation. Si vous n'acceptez pas tout ou partie de ces conditions, merci de ne pas utiliser le site.",
-    "aboutCompanyTitle": "À propos de VivatBet Sport",
-    "aboutCompanyText": "VivatBet Sport est un opérateur belge d'informations sportives et de paris en ligne, dédié à offrir aux passionnés de sport une expérience de qualité, transparente et responsable. La plateforme rassemble en temps réel scores, calendriers, résultats et statistiques pour plus de 500 compétitions à travers le monde — du Jupiler Pro League à la Champions League, en passant par les principaux tournois de basketball, tennis, hockey et 30+ disciplines. Notre mission : permettre aux fans de sport en Belgique et en Europe d'accéder à des données fiables, mises à jour à la seconde près, dans la langue de chacun (FR / NL / EN / DE), dans un environnement clair et sécurisé, conforme aux exigences belges et européennes. VivatBet Sport opère dans le respect strict du cadre réglementaire belge — RGPD, jeu responsable, transparence commerciale. Le site fastscore.vercel.app est le pôle d'information sportive de VivatBet Sport, dédié exclusivement à la diffusion de scores et statistiques — il ne facilite ni les paris ni les jeux d'argent. Contact : info@vivatbetsport.be — Bruxelles, Belgique.",
+    "intro": "Bienvenue sur FastScore. En accédant à ce site (fastscore.vercel.app) vous acceptez d'être lié par les présentes Conditions d'utilisation. Si vous n'acceptez pas tout ou partie de ces conditions, merci de ne pas utiliser le site.",
+    "aboutCompanyTitle": "À propos de FastScore",
+    "aboutCompanyText": "FastScore est un opérateur belge d'informations sportives et de paris en ligne, dédié à offrir aux passionnés de sport une expérience de qualité, transparente et responsable. La plateforme rassemble en temps réel scores, calendriers, résultats et statistiques pour plus de 500 compétitions à travers le monde — du Jupiler Pro League à la Champions League, en passant par les principaux tournois de basketball, tennis, hockey et 30+ disciplines. Notre mission : permettre aux fans de sport en Belgique et en Europe d'accéder à des données fiables, mises à jour à la seconde près, dans la langue de chacun (FR / NL / EN / DE), dans un environnement clair et sécurisé, conforme aux exigences belges et européennes. FastScore opère dans le respect strict du cadre réglementaire belge — RGPD, jeu responsable, transparence commerciale. Le site fastscore.vercel.app est le pôle d'information sportive de FastScore, dédié exclusivement à la diffusion de scores et statistiques — il ne facilite ni les paris ni les jeux d'argent. Contact : info@fastscore.be — Bruxelles, Belgique.",
     "section1Title": "Objet du Site",
-    "section1Text": "Le Site fournit des informations sportives à titre purement informatif : scores en direct, calendriers, résultats, statistiques, actualités. Le Site ne propose ni paris, ni jeux d'argent, ni transactions financières. Toute activité de pari se déroule exclusivement sur la plateforme principale Vivat Sport, soumise à ses propres conditions et licences.",
+    "section1Text": "Le Site fournit des informations sportives à titre purement informatif : scores en direct, calendriers, résultats, statistiques, actualités. Le Site ne propose ni paris, ni jeux d'argent, ni transactions financières. Toute activité de pari se déroule exclusivement sur la plateforme principale FastScore, soumise à ses propres conditions et licences.",
     "section2Title": "Conditions d'accès",
     "section2Text": "L'accès au Site est libre et gratuit. L'utilisateur doit être âgé d'au moins 18 ans pour utiliser les services connexes liés aux paris sportifs. L'utilisateur s'engage à utiliser le Site conformément aux lois en vigueur et aux présentes conditions.",
     "section3Title": "Exactitude des informations & propriété intellectuelle",
-    "section3Text": "Nous mettons tout en œuvre pour garantir l'exactitude des données, mais scores et statistiques proviennent de sources tierces et peuvent contenir des erreurs ou retards. L'Opérateur ne saurait être tenu responsable des décisions prises sur la base des informations affichées. Tout le contenu du Site (textes, graphismes, logos, code, marques) est la propriété exclusive de VivatBet Sport ou de ses partenaires, protégé par le droit d'auteur belge et international.",
+    "section3Text": "Nous mettons tout en œuvre pour garantir l'exactitude des données, mais scores et statistiques proviennent de sources tierces et peuvent contenir des erreurs ou retards. L'Opérateur ne saurait être tenu responsable des décisions prises sur la base des informations affichées. Tout le contenu du Site (textes, graphismes, logos, code, marques) est la propriété exclusive de FastScore ou de ses partenaires, protégé par le droit d'auteur belge et international.",
     "section4Title": "Conduite de l'utilisateur",
     "section4Text": "L'utilisateur s'engage à ne pas : tenter d'accès non autorisé ; utiliser des robots, scrapers ou outils automatisés ; perturber le fonctionnement du Site (DDoS, injection, etc.) ; usurper l'identité d'un tiers. Toute violation peut entraîner un blocage immédiat et des poursuites judiciaires.",
     "section5Title": "Limitation de responsabilité & jeu responsable",
-    "section5Text": "Dans la mesure permise par la loi belge, VivatBet Sport ne saurait être tenu responsable des dommages directs ou indirects, pertes de données ou de profit, interruptions de service, bugs ou incidents techniques. VivatBet Sport s'engage en faveur du jeu responsable. Si vous ou un proche rencontrez des difficultés liées au jeu : Jeu Hasard Info / bedenkjekansen.be.",
+    "section5Text": "Dans la mesure permise par la loi belge, FastScore ne saurait être tenu responsable des dommages directs ou indirects, pertes de données ou de profit, interruptions de service, bugs ou incidents techniques. FastScore s'engage en faveur du jeu responsable. Si vous ou un proche rencontrez des difficultés liées au jeu : Jeu Hasard Info / bedenkjekansen.be.",
     "section6Title": "Modifications, loi applicable & contact",
-    "section6Text": "Nous nous réservons le droit de modifier ces Conditions à tout moment. Une utilisation continue du Site après modification vaut acceptation des nouvelles conditions. Les présentes Conditions sont régies par le droit belge. Tout litige relève de la compétence exclusive des tribunaux de Bruxelles. Contact : info@vivatbetsport.be."
+    "section6Text": "Nous nous réservons le droit de modifier ces Conditions à tout moment. Une utilisation continue du Site après modification vaut acceptation des nouvelles conditions. Les présentes Conditions sont régies par le droit belge. Tout litige relève de la compétence exclusive des tribunaux de Bruxelles. Contact : info@fastscore.be."
   },
   "cookiePolicy": {
-    "title": "Politique de cookies pour VivatBetSport",
+    "title": "Politique de cookies pour FastScore",
     "lastUpdated": "Dernière mise à jour",
-    "intro": "Cette politique explique comment VivatBet Sport utilise les cookies et technologies similaires sur fastscore.vercel.app, conformément au RGPD et à la directive ePrivacy applicable en Belgique.",
+    "intro": "Cette politique explique comment FastScore utilise les cookies et technologies similaires sur fastscore.vercel.app, conformément au RGPD et à la directive ePrivacy applicable en Belgique.",
     "section1Title": "Qu'est-ce qu'un cookie",
     "section1Text": "Un cookie est un petit fichier texte stocké sur votre appareil (ordinateur, tablette, smartphone) lors de la visite d'un site. Il permet au site de mémoriser vos actions et préférences (langue, thème, identifiants) pendant une durée définie.",
     "section2Title": "Comment nous utilisons les cookies",
@@ -180,7 +180,7 @@
     "analytics": "Cookies analytiques",
     "analyticsText": "Collectent des données agrégées et anonymisées (pages visitées, durée de session, parcours) pour améliorer le service.",
     "section4Title": "Gestion des préférences & base légale",
-    "section4Text": "Vous pouvez à tout moment accepter ou refuser les cookies via la bannière, modifier vos préférences via votre navigateur, ou supprimer les cookies stockés. Désactiver certains cookies peut affecter le fonctionnement du site. Le dépôt de cookies non essentiels est soumis à votre consentement préalable (article 129 de la loi belge du 13 juin 2005 et article 7 du RGPD). Questions : info@vivatbetsport.be."
+    "section4Text": "Vous pouvez à tout moment accepter ou refuser les cookies via la bannière, modifier vos préférences via votre navigateur, ou supprimer les cookies stockés. Désactiver certains cookies peut affecter le fonctionnement du site. Le dépôt de cookies non essentiels est soumis à votre consentement préalable (article 129 de la loi belge du 13 juin 2005 et article 7 du RGPD). Questions : info@fastscore.be."
   },
   "contact": {
     "title": "Contactez-nous",

@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
@@ -12,8 +11,6 @@ import {
 import { cn } from "@/lib/utils";
 import { SPORT_IDS } from "@/types/api";
 import SportIcon from "@/components/sports/sport-icon";
-import PromoBanner from "@/components/promo/promo-banner";
-
 const mainNav = [
   { key: "home", href: "", icon: Home },
   { key: "live", href: "/live", icon: Activity },
@@ -57,19 +54,10 @@ export default function Sidebar() {
     <div className="flex flex-col h-full">
       {/* Logo */}
       <div className="px-5 py-3.5 flex items-center justify-between">
-        <Link href={`/${locale}`} className="flex items-center gap-2.5 group" aria-label="VivatBet">
-          {/* Квадратный mark VivatBet — SVG из /public/logo-mark.svg.
-              priority=true, чтобы лого подгружался первым (LCP/паттерн брендинга). */}
-          <Image
-            src="/logo-mark.svg"
-            alt=""
-            width={36}
-            height={36}
-            priority
-            className="h-9 w-9 rounded-xl shadow-md shadow-brand-dark/30"
-          />
-          <span className="text-lg font-bold tracking-tight">
-            Vivat<span className="text-brand-orange">Bet</span>
+        <Link href={`/${locale}`} className="flex items-center group" aria-label="FastScore">
+          {/* Текстовый логотип FastScore (бренд VivatBet убран по запросу заказчика). */}
+          <span className="text-2xl font-extrabold tracking-tight text-foreground">
+            Fast<span className="text-brand-orange">Score</span>
           </span>
         </Link>
       </div>
@@ -160,11 +148,8 @@ export default function Sidebar() {
       <div className="flex-1 min-h-2" />
 
       {/* Bottom controls — переключатели темы/языка перенесены в шапку
-          (Topbar), чтобы пользователь находил их там, где привычно. В сайдбаре
-          оставляем только промо-баннер. */}
-      <div className="px-4 pb-3 space-y-2">
-        <PromoBanner variant={1} size="compact" className="rounded-xl" />
-      </div>
+          (Topbar). Промо-баннер VivatBet Sport удалён по запросу заказчика:
+          сайт теперь сам является VivatBet Sport, внешняя CTA избыточна. */}
     </div>
   );
 

@@ -21,7 +21,7 @@ export default function EmptyState({ icon: Icon, title, description, action }: E
     <motion.div
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+      transition={{ type: "spring", stiffness: 320, damping: 22 }}
       className="card p-10 flex flex-col items-center justify-center text-center"
     >
       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-surface to-surface-hover ring-1 ring-border mb-4">

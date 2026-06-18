@@ -29,17 +29,17 @@ export const viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Live Sports Scores & Match Center | Vivat Sport`,
+    default: `${SITE_NAME} — Live Sports Scores & Match Center | FastScore`,
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Live sports scores, fixtures, results and statistics. Football, basketball, tennis and 30+ sports. Powered by Vivat Sport.",
+    "Live sports scores, fixtures, results and statistics. Football, basketball, tennis and 30+ sports. Powered by FastScore.",
   applicationName: SITE_NAME,
   generator: "Next.js",
   referrer: "origin-when-cross-origin",
-  authors: [{ name: "Vivat Sport" }],
-  creator: "Vivat Sport",
-  publisher: "Vivat Sport",
+  authors: [{ name: "FastScore" }],
+  creator: "FastScore",
+  publisher: "FastScore",
   formatDetection: {
     telephone: false,
     email: false,
@@ -69,16 +69,16 @@ export const metadata: Metadata = {
 const orgJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Vivat Sport",
+  name: "FastScore",
   alternateName: SITE_NAME,
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.svg`,
-  email: "info@vivatbetsport.be",
+  logo: `${SITE_URL}/icon-512.svg`,
+  email: "info@fastscore.be",
   contactPoint: [
     {
       "@type": "ContactPoint",
       contactType: "customer support",
-      email: "info@vivatbetsport.be",
+      email: "info@fastscore.be",
       availableLanguage: ["English", "French", "Dutch", "German"],
     },
   ],
@@ -92,7 +92,7 @@ const websiteJsonLd = {
   inLanguage: ["en", "fr", "nl", "de"],
   publisher: {
     "@type": "Organization",
-    name: "Vivat Sport",
+    name: "FastScore",
   },
 };
 

@@ -83,7 +83,7 @@ function rowToArticle(row: string[]): NewsArticle | null {
     // url — относительный путь (без локали — её добавит страница при рендере)
     url: `/news/${slug}`,
     imageUrl: imageUrl || "https://images.unsplash.com/photo-1461896836934-bd45ba47c285?w=1200",
-    source: author || "Vivat Sport",
+    source: author || "FastScore",
     author: author || undefined,
     category: category || "News",
     publishedAt: date || new Date().toISOString(),

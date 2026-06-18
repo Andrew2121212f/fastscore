@@ -16,7 +16,7 @@
   --accent-red: #f87171;
   --accent-blue: #60a5fa;
   --accent-purple: #a78bfa;
-  /* VivatBet brand: lime + deep teal-green — точные цвета из SVG-логотипа.
+  /* FastScore brand: lime + deep teal-green.
      --brand-orange — историческое имя переменной (используется ~200 раз
      в классах bg-brand-orange/text-brand-orange/border-brand-orange).
      Переименовать = рефакторить все компоненты; вместо этого меняем
@@ -52,7 +52,7 @@
   --accent-red: #ef4444;
   --accent-blue: #3b82f6;
   --accent-purple: #8b5cf6;
-  /* VivatBet brand для light-темы — чуть приглушённее, чтобы lime
+  /* FastScore brand для light-темы — чуть приглушённее, чтобы lime
      не "горел" на белом фоне. */
   --brand-orange: #82a000;
   --brand-dark: #044f4d;
@@ -208,6 +208,16 @@ body {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: var(--radius-badge);
+}
+
+/* Уважаем системную настройку «уменьшить движение» (accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* ===== SCROLLBAR ===== */

@@ -63,7 +63,7 @@ export default function ContactClient() {
           <h3 className="text-sm font-bold mb-4">{t("info")}</h3>
           <div className="space-y-4">
             {[
-              { icon: Mail, label: t("emailLabel"), value: "info@vivatbetsport.be", href: "mailto:info@vivatbetsport.be" },
+              { icon: Mail, label: t("emailLabel"), value: "info@fastscore.be", href: "mailto:info@fastscore.be" },
               { icon: MapPin, label: t("locationLabel"), value: t("location") },
               { icon: Clock, label: t("hoursLabel"), value: t("hours") },
             ].map((item) => (

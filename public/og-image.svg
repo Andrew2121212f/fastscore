@@ -33,7 +33,7 @@
 
   <!-- Wordmark + tagline -->
   <text x="280" y="305" fill="#FFFFFF" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="84" font-weight="900" letter-spacing="-2">
-    Vivat<tspan fill="#A8CD0C">Bet</tspan>
+    Fast<tspan fill="#A8CD0C">Score</tspan>
   </text>
   <text x="282" y="370" fill="#A8CD0C" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif" font-size="32" font-weight="700" letter-spacing="2" text-transform="uppercase">
     LIVE SPORTS · 500+ LEAGUES
@@ -45,9 +45,9 @@
   <!-- Footer-полоска -->
   <rect x="0" y="600" width="1200" height="30" fill="#033937"/>
   <text x="80" y="620" fill="#A8CD0C" font-family="system-ui,sans-serif" font-size="14" font-weight="700" letter-spacing="3">
-    VIVATBETSPORT.BE
+    FASTSCORE
   </text>
   <text x="1120" y="620" fill="#94a3b8" font-family="system-ui,sans-serif" font-size="14" font-weight="500" text-anchor="end">
-    Powered by Vivat Sport
+    Real-time scores &amp; results
   </text>
 </svg>

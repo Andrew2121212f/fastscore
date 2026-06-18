@@ -20,7 +20,9 @@ export default function LiveMatchCard({ event, index = 0 }: Props) {
     <motion.div
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
+      transition={{ type: "spring", stiffness: 420, damping: 32, delay: index * 0.04 }}
+      whileHover={{ y: -4 }}
+      whileTap={{ scale: 0.97 }}
       className="card card-interactive group relative flex flex-col min-w-60 p-4 cursor-pointer shrink-0"
     >
       <div className="flex items-center justify-between mb-3">

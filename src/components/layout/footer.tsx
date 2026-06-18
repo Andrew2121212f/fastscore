@@ -1,6 +1,5 @@
 import { useTranslations, useLocale } from "next-intl";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Footer() {
   const t = useTranslations("footer");
@@ -37,16 +36,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
           <div>
-            <Link href={`/${locale}`} className="flex items-center gap-2.5 mb-4" aria-label="VivatBet">
-              <Image
-                src="/logo-mark.svg"
-                alt=""
-                width={32}
-                height={32}
-                className="h-8 w-8 rounded-xl"
-              />
+            <Link href={`/${locale}`} className="flex items-center gap-2.5 mb-4" aria-label="FastScore">
               <span className="text-lg font-bold tracking-tight">
-                Vivat<span className="text-brand-orange">Bet</span>
+                Fast<span className="text-brand-orange">Score</span>
               </span>
             </Link>
             <p className="text-sm text-text-muted leading-relaxed max-w-xs mb-4">
@@ -108,11 +100,8 @@ export default function Footer() {
 
         <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="text-xs text-text-muted">
-            &copy; {year} vivatbetsport.be — {t("rights")}
+            &copy; {year} FastScore — {t("rights")}
           </span>
-          <div className="flex items-center gap-4 text-xs text-text-muted">
-            <span>Powered by Vivat Sport</span>
-          </div>
         </div>
       </div>
     </footer>

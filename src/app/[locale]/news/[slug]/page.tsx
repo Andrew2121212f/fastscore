@@ -88,7 +88,7 @@ export default async function NewsArticlePage({ params }: PageProps) {
     publisher: {
       "@type": "Organization",
       name: SITE_NAME,
-      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.svg` },
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/icon-512.svg` },
     },
     mainEntityOfPage: {
       "@type": "WebPage",

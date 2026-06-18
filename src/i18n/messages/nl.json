@@ -46,7 +46,7 @@
       "currentPeriod": "Periode",
       "matchTime": "Speeltijd",
       "score": "Score",
-      "betCta": "Wedden bij Vivat Sport",
+      "betCta": "Wedden bij FastScore",
       "tabs": {
         "overview": "Overzicht",
         "h2h": "Onderlinge duels",
@@ -94,7 +94,7 @@
     "terms": "Gebruiksvoorwaarden",
     "cookies": "Cookiebeleid",
     "rights": "Alle rechten voorbehouden",
-    "disclaimer": "VivatBet biedt sportgegevens uitsluitend ter informatie. Op deze site faciliteren wij geen gokken of weddenschappen.",
+    "disclaimer": "FastScore biedt sportgegevens uitsluitend ter informatie. Op deze site faciliteren wij geen gokken of weddenschappen.",
     "responsible": "18+ | Gok verantwoord"
   },
   "notFound": {
@@ -103,10 +103,10 @@
     "backHome": "Terug naar home"
   },
   "about": {
-    "title": "Over VivatBet",
+    "title": "Over FastScore",
     "subtitle": "Uw betrouwbare bron voor live uitslagen, speelschema en resultaten in meer dan 500 competities.",
     "mission": "Onze Missie",
-    "missionText": "VivatBet levert realtime sportdata om fans geïnformeerd te houden met live uitslagen, wedstrijdstatistieken en toernooi-informatie.",
+    "missionText": "FastScore levert realtime sportdata om fans geïnformeerd te houden met live uitslagen, wedstrijdstatistieken en toernooi-informatie.",
     "features": "Wat wij bieden",
     "feature1Title": "Live uitslagen",
     "feature1Text": "Realtime scores voor voetbal, basketbal, tennis, hockey en 30+ sporten.",
@@ -116,22 +116,22 @@
     "feature3Text": "Volledige kalender met komende wedstrijden, aanvangstijden en toernooicontext voor alle competities die we behandelen.",
     "feature4Title": "500+ Competities",
     "feature4Text": "Van Champions League tot lokale divisies — wij dekken competities wereldwijd.",
-    "poweredBy": "Aangedreven door Vivat Sport",
-    "poweredByText": "VivatBet is gebouwd op het Vivat Sport dataplatform en biedt betrouwbare sportinformatie voor de Belgische en Europese markt.",
+    "poweredBy": "Aangedreven door FastScore",
+    "poweredByText": "FastScore is gebouwd op het FastScore dataplatform en biedt betrouwbare sportinformatie voor de Belgische en Europese markt.",
     "termsTitle": "Gebruiksvoorwaarden",
-    "termsIntro": "Door VivatBet Sport (fastscore.vercel.app) te gebruiken gaat u akkoord met onze gebruiksvoorwaarden. De site biedt sportinformatie uitsluitend ter informatie — er worden geen weddenschappen of kansspelen gefaciliteerd. Alle wedactiviteit vindt uitsluitend plaats op het hoofdplatform Vivat Sport.",
+    "termsIntro": "Door FastScore (fastscore.vercel.app) te gebruiken gaat u akkoord met onze gebruiksvoorwaarden. De site biedt sportinformatie uitsluitend ter informatie — er worden geen weddenschappen of kansspelen gefaciliteerd. Alle wedactiviteit vindt uitsluitend plaats op het hoofdplatform FastScore.",
     "termsHighlight1Title": "Gebruik van de dienst",
     "termsHighlight1Text": "Informatie uitsluitend voor sportfans. Gebruikers 18+. Data van derden — verifieer bij officiële bronnen vóór beslissingen.",
     "termsHighlight2Title": "Intellectueel eigendom",
-    "termsHighlight2Text": "Alle content is exclusief eigendom van VivatBet Sport of partners, beschermd door Belgisch en internationaal auteursrecht.",
+    "termsHighlight2Text": "Alle content is exclusief eigendom van FastScore of partners, beschermd door Belgisch en internationaal auteursrecht.",
     "termsHighlight3Title": "Verantwoord gokken",
     "termsHighlight3Text": "Wij zetten ons in voor verantwoord gokken. Bij gok-gerelateerde problemen: Belgische hulpdiensten of bedenkjekansen.be.",
     "termsReadMore": "Lees de volledige gebruiksvoorwaarden"
   },
   "privacy": {
-    "title": "Privacybeleid voor VivatBetSport",
+    "title": "Privacybeleid voor FastScore",
     "lastUpdated": "Laatst bijgewerkt",
-    "intro": "VivatBet Sport hecht het grootste belang aan de bescherming van uw persoonsgegevens. Dit beleid beschrijft hoe wij uw informatie verzamelen, gebruiken en beschermen op fastscore.vercel.app, conform de AVG en de Belgische wet van 30 juli 2018. Verwerkingsverantwoordelijke: VivatBet Sport, Brussel — info@vivatbetsport.be.",
+    "intro": "FastScore hecht het grootste belang aan de bescherming van uw persoonsgegevens. Dit beleid beschrijft hoe wij uw informatie verzamelen, gebruiken en beschermen op fastscore.vercel.app, conform de AVG en de Belgische wet van 30 juli 2018. Verwerkingsverantwoordelijke: FastScore, Brussel — info@fastscore.be.",
     "section1Title": "Verzamelde gegevens",
     "section1Text": "Automatisch verzameld: IP-adres (geanonimiseerd), browsertype, OS, taal, bezochte pagina's, sessieduur, verwijzingsbron, apparaattype. Via contactformulier: naam, e-mail, onderwerp en bericht. Wij verzamelen geen bankgegevens of gevoelige gegevens (gezondheid, opinies, religie).",
     "section2Title": "Gebruik van gegevens",
@@ -141,33 +141,33 @@
     "section4Title": "Diensten van derden",
     "section4Text": "Uw gegevens kunnen worden gedeeld met technische dienstverleners (Vercel hosting, analytics) onder geheimhoudingsovereenkomst, en met bevoegde autoriteiten bij wettelijke verplichting. Geen overdracht buiten de EER zonder passende waarborgen (modelcontractbepalingen van de Europese Commissie).",
     "section5Title": "Uw AVG-rechten",
-    "section5Text": "U heeft te allen tijde recht op: inzage, rectificatie, wissing (recht om vergeten te worden), beperking van verwerking, gegevensoverdraagbaarheid, bezwaar, intrekking van toestemming en klacht bij de Belgische Gegevensbeschermingsautoriteit (autoriteprotectiondonnees.be). Verzoeken: info@vivatbetsport.be met identiteitsbewijs — antwoord binnen 30 dagen.",
+    "section5Text": "U heeft te allen tijde recht op: inzage, rectificatie, wissing (recht om vergeten te worden), beperking van verwerking, gegevensoverdraagbaarheid, bezwaar, intrekking van toestemming en klacht bij de Belgische Gegevensbeschermingsautoriteit (autoriteprotectiondonnees.be). Verzoeken: info@fastscore.be met identiteitsbewijs — antwoord binnen 30 dagen.",
     "section6Title": "Beveiliging & contact",
-    "section6Text": "Wij implementeren passende technische en organisatorische maatregelen: HTTPS-versleuteling, beperkte toegang, regelmatige beveiligingsupdates. Geen enkele transmissie via internet is volledig veilig — absolute beveiliging kunnen wij niet garanderen. Vragen: info@vivatbetsport.be."
+    "section6Text": "Wij implementeren passende technische en organisatorische maatregelen: HTTPS-versleuteling, beperkte toegang, regelmatige beveiligingsupdates. Geen enkele transmissie via internet is volledig veilig — absolute beveiliging kunnen wij niet garanderen. Vragen: info@fastscore.be."
   },
   "terms": {
     "title": "Gebruiksvoorwaarden",
     "lastUpdated": "Laatst bijgewerkt",
-    "intro": "Welkom bij VivatBet Sport. Door deze website (fastscore.vercel.app) te gebruiken, gaat u akkoord met deze gebruiksvoorwaarden. Als u deze voorwaarden niet aanvaardt, gebruik de website dan niet.",
-    "aboutCompanyTitle": "Over VivatBet Sport",
-    "aboutCompanyText": "VivatBet Sport is een Belgische operator voor sportinformatie en online weddenschappen, toegewijd aan het bieden van een kwalitatieve, transparante en verantwoorde ervaring aan sportfans. Het platform verzamelt realtime scores, schema's, resultaten en statistieken voor meer dan 500 competities wereldwijd — van de Jupiler Pro League tot de Champions League, plus toonaangevende basketbal-, tennis-, hockey- en 30+ andere disciplines. Onze missie: sportfans in België en Europa toegang geven tot betrouwbare data, seconde-actueel, in hun eigen taal (FR / NL / EN / DE), in een duidelijke en veilige omgeving die voldoet aan de Belgische en Europese wetgeving. VivatBet Sport opereert volledig binnen het Belgische regelgevingskader voor sportoperatoren — AVG, verantwoord gokken, transparante reclame. De site fastscore.vercel.app is het informatiecentrum van VivatBet Sport, uitsluitend gewijd aan scores en statistieken — er worden geen weddenschappen of kansspelen gefaciliteerd. Contact: info@vivatbetsport.be — Brussel, België.",
+    "intro": "Welkom bij FastScore. Door deze website (fastscore.vercel.app) te gebruiken, gaat u akkoord met deze gebruiksvoorwaarden. Als u deze voorwaarden niet aanvaardt, gebruik de website dan niet.",
+    "aboutCompanyTitle": "Over FastScore",
+    "aboutCompanyText": "FastScore is een Belgische operator voor sportinformatie en online weddenschappen, toegewijd aan het bieden van een kwalitatieve, transparante en verantwoorde ervaring aan sportfans. Het platform verzamelt realtime scores, schema's, resultaten en statistieken voor meer dan 500 competities wereldwijd — van de Jupiler Pro League tot de Champions League, plus toonaangevende basketbal-, tennis-, hockey- en 30+ andere disciplines. Onze missie: sportfans in België en Europa toegang geven tot betrouwbare data, seconde-actueel, in hun eigen taal (FR / NL / EN / DE), in een duidelijke en veilige omgeving die voldoet aan de Belgische en Europese wetgeving. FastScore opereert volledig binnen het Belgische regelgevingskader voor sportoperatoren — AVG, verantwoord gokken, transparante reclame. De site fastscore.vercel.app is het informatiecentrum van FastScore, uitsluitend gewijd aan scores en statistieken — er worden geen weddenschappen of kansspelen gefaciliteerd. Contact: info@fastscore.be — Brussel, België.",
     "section1Title": "Doel van de site",
-    "section1Text": "De site biedt sportinformatie uitsluitend ter informatie: live scores, schema's, resultaten, statistieken, nieuws. De site biedt geen weddenschappen, kansspelen of financiële transacties. Alle wedactiviteit vindt uitsluitend plaats op het hoofdplatform Vivat Sport, met eigen voorwaarden en vergunningen.",
+    "section1Text": "De site biedt sportinformatie uitsluitend ter informatie: live scores, schema's, resultaten, statistieken, nieuws. De site biedt geen weddenschappen, kansspelen of financiële transacties. Alle wedactiviteit vindt uitsluitend plaats op het hoofdplatform FastScore, met eigen voorwaarden en vergunningen.",
     "section2Title": "Toegangsvoorwaarden",
     "section2Text": "Toegang tot de site is gratis en open. Gebruikers moeten minimaal 18 jaar zijn om de aanverwante wedservices te gebruiken. De gebruiker verbindt zich ertoe de site te gebruiken in overeenstemming met de geldende wetgeving en deze voorwaarden.",
     "section3Title": "Nauwkeurigheid & intellectueel eigendom",
-    "section3Text": "Wij streven naar nauwkeurigheid van de data, maar scores en statistieken komen van derden en kunnen fouten, vertragingen of weglatingen bevatten. De Operator is niet aansprakelijk voor beslissingen op basis van weergegeven informatie. Alle content op de site (tekst, grafieken, logo's, code, merken) is exclusief eigendom van VivatBet Sport of partners, beschermd door Belgisch en internationaal auteursrecht.",
+    "section3Text": "Wij streven naar nauwkeurigheid van de data, maar scores en statistieken komen van derden en kunnen fouten, vertragingen of weglatingen bevatten. De Operator is niet aansprakelijk voor beslissingen op basis van weergegeven informatie. Alle content op de site (tekst, grafieken, logo's, code, merken) is exclusief eigendom van FastScore of partners, beschermd door Belgisch en internationaal auteursrecht.",
     "section4Title": "Gedrag van de gebruiker",
     "section4Text": "De gebruiker verbindt zich ertoe niet: onbevoegde toegang te proberen; bots, scrapers of geautomatiseerde tools te gebruiken; de werking van de site te verstoren (DDoS, injectie, etc.); zich voor te doen als een ander. Overtredingen kunnen leiden tot onmiddellijke blokkering en gerechtelijke vervolging.",
     "section5Title": "Aansprakelijkheid & verantwoord gokken",
-    "section5Text": "Voor zover toegestaan door de Belgische wet is VivatBet Sport niet aansprakelijk voor directe of indirecte schade, gegevensverlies, winstderving, dienstonderbrekingen, bugs of technische incidenten. VivatBet Sport zet zich in voor verantwoord gokken. Bij gok-gerelateerde problemen: Jeu Hasard Info / bedenkjekansen.be.",
+    "section5Text": "Voor zover toegestaan door de Belgische wet is FastScore niet aansprakelijk voor directe of indirecte schade, gegevensverlies, winstderving, dienstonderbrekingen, bugs of technische incidenten. FastScore zet zich in voor verantwoord gokken. Bij gok-gerelateerde problemen: Jeu Hasard Info / bedenkjekansen.be.",
     "section6Title": "Wijzigingen, toepasselijk recht & contact",
-    "section6Text": "Wij behouden het recht deze voorwaarden te allen tijde te wijzigen. Voortgezet gebruik na wijziging geldt als aanvaarding. Op deze voorwaarden is Belgisch recht van toepassing. Geschillen vallen onder de exclusieve bevoegdheid van de rechtbanken van Brussel. Contact: info@vivatbetsport.be."
+    "section6Text": "Wij behouden het recht deze voorwaarden te allen tijde te wijzigen. Voortgezet gebruik na wijziging geldt als aanvaarding. Op deze voorwaarden is Belgisch recht van toepassing. Geschillen vallen onder de exclusieve bevoegdheid van de rechtbanken van Brussel. Contact: info@fastscore.be."
   },
   "cookiePolicy": {
-    "title": "Cookiebeleid voor VivatBetSport",
+    "title": "Cookiebeleid voor FastScore",
     "lastUpdated": "Laatst bijgewerkt",
-    "intro": "Dit beleid legt uit hoe VivatBet Sport cookies en vergelijkbare technologieën gebruikt op fastscore.vercel.app, conform de AVG en de ePrivacy-richtlijn van toepassing in België.",
+    "intro": "Dit beleid legt uit hoe FastScore cookies en vergelijkbare technologieën gebruikt op fastscore.vercel.app, conform de AVG en de ePrivacy-richtlijn van toepassing in België.",
     "section1Title": "Wat is een cookie",
     "section1Text": "Een cookie is een klein tekstbestand dat op uw apparaat (computer, tablet, smartphone) wordt opgeslagen bij het bezoeken van een website. Het stelt de site in staat uw acties en voorkeuren (taal, thema, login) gedurende een bepaalde periode te onthouden.",
     "section2Title": "Hoe wij cookies gebruiken",
@@ -180,7 +180,7 @@
     "analytics": "Analytische cookies",
     "analyticsText": "Verzamelen geaggregeerde, geanonimiseerde data over sitegebruik (bezochte pagina's, sessieduur, parcours) om onze dienst te verbeteren.",
     "section4Title": "Voorkeuren beheren & rechtsgrond",
-    "section4Text": "U kunt te allen tijde cookies aanvaarden of weigeren via de banner, voorkeuren wijzigen via uw browser, of opgeslagen cookies verwijderen. Bepaalde cookies uitschakelen kan de werking van de site beïnvloeden. Het plaatsen van niet-essentiële cookies vereist uw voorafgaande toestemming, conform artikel 129 van de Belgische wet van 13 juni 2005 en artikel 7 AVG. Vragen: info@vivatbetsport.be."
+    "section4Text": "U kunt te allen tijde cookies aanvaarden of weigeren via de banner, voorkeuren wijzigen via uw browser, of opgeslagen cookies verwijderen. Bepaalde cookies uitschakelen kan de werking van de site beïnvloeden. Het plaatsen van niet-essentiële cookies vereist uw voorafgaande toestemming, conform artikel 129 van de Belgische wet van 13 juni 2005 en artikel 7 AVG. Vragen: info@fastscore.be."
   },
   "contact": {
     "title": "Neem contact op",

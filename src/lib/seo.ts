@@ -7,7 +7,7 @@ export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || "https://fastscore.vercel.app"
 ).replace(/\/$/, "");
 
-export const SITE_NAME = "VivatBet";
+export const SITE_NAME = "FastScore";
 
 // Соответствие локали → код языка в OG/HTML (важно для hreflang).
 export const ogLocaleMap: Record<Locale, string> = {
@@ -41,10 +41,10 @@ type SeoDictionary = Record<StaticRoute, RouteSeo>;
 
 const seoEN: SeoDictionary = {
   "": {
-    title: "VivatBet — Live Sports Scores & Match Center",
+    title: "FastScore — Live Sports Scores & Match Center",
     description:
-      "Real-time scores, fixtures and results across 500+ leagues. Football, basketball, tennis and 30+ sports. Powered by Vivat Sport.",
-    keywords: ["live scores", "sports results", "football scores", "vivat sport", "belgium"],
+      "Real-time scores, fixtures and results across 500+ leagues. Football, basketball, tennis and 30+ sports. Powered by FastScore.",
+    keywords: ["live scores", "sports results", "football scores", "fastscore", "belgium"],
   },
   "/live": {
     title: "Live Scores — Every Match Right Now",
@@ -71,39 +71,39 @@ const seoEN: SeoDictionary = {
     keywords: ["sports news", "football news", "match recaps", "sports analysis"],
   },
   "/about": {
-    title: "About VivatBet — Live Sports by Vivat Sport",
+    title: "About FastScore — Live Sports by FastScore",
     description:
-      "VivatBet is the live scores and match-center experience by Vivat Sport. Real-time data across 500+ leagues for the Belgian market.",
-    keywords: ["about fastscore", "vivat sport", "belgium betting", "sports data"],
+      "FastScore is the live scores and match-center experience by FastScore. Real-time data across 500+ leagues for the Belgian market.",
+    keywords: ["about fastscore", "fastscore", "belgium betting", "sports data"],
   },
   "/contact": {
-    title: "Contact VivatBet — Get in Touch",
+    title: "Contact FastScore — Get in Touch",
     description:
-      "Questions, feedback or business inquiries? Reach the VivatBet team directly at info@vivatbetsport.be or via the contact form.",
+      "Questions, feedback or business inquiries? Reach the FastScore team directly at info@fastscore.be or via the contact form.",
   },
   "/terms": {
-    title: "Terms of Service — VivatBet",
+    title: "Terms of Service — FastScore",
     description:
-      "Terms of service for VivatBet by Vivat Sport. Read the rules and conditions that govern your use of the website.",
+      "Terms of service for FastScore by FastScore. Read the rules and conditions that govern your use of the website.",
   },
   "/privacy": {
-    title: "Privacy Policy — VivatBet",
+    title: "Privacy Policy — FastScore",
     description:
-      "How VivatBet (Vivat Sport) collects, uses and protects your personal data. GDPR-aligned privacy practices.",
+      "How FastScore (FastScore) collects, uses and protects your personal data. GDPR-aligned privacy practices.",
   },
   "/cookies": {
-    title: "Cookie Policy — VivatBet",
+    title: "Cookie Policy — FastScore",
     description:
-      "Which cookies VivatBet uses, why we use them, and how you can manage your preferences at any time.",
+      "Which cookies FastScore uses, why we use them, and how you can manage your preferences at any time.",
   },
 };
 
 const seoFR: SeoDictionary = {
   "": {
-    title: "VivatBet — Scores en direct & Centre des matchs",
+    title: "FastScore — Scores en direct & Centre des matchs",
     description:
-      "Scores en temps réel, calendrier et résultats dans plus de 500 ligues. Football, basket, tennis et 30+ sports. Propulsé par Vivat Sport.",
-    keywords: ["scores en direct", "résultats sportifs", "scores football", "vivat sport", "belgique"],
+      "Scores en temps réel, calendrier et résultats dans plus de 500 ligues. Football, basket, tennis et 30+ sports. Propulsé par FastScore.",
+    keywords: ["scores en direct", "résultats sportifs", "scores football", "fastscore", "belgique"],
   },
   "/live": {
     title: "Scores en direct — Tous les matchs en cours",
@@ -130,39 +130,39 @@ const seoFR: SeoDictionary = {
     keywords: ["actualités sport", "actualités football", "résumés matchs"],
   },
   "/about": {
-    title: "À propos de VivatBet — Vivat Sport",
+    title: "À propos de FastScore — FastScore",
     description:
-      "VivatBet est l'expérience de scores en direct et de centre des matchs proposée par Vivat Sport pour le marché belge.",
-    keywords: ["à propos fastscore", "vivat sport", "paris belgique"],
+      "FastScore est l'expérience de scores en direct et de centre des matchs proposée par FastScore pour le marché belge.",
+    keywords: ["à propos fastscore", "fastscore", "paris belgique"],
   },
   "/contact": {
-    title: "Contact VivatBet — Nous joindre",
+    title: "Contact FastScore — Nous joindre",
     description:
-      "Questions ou demandes ? Contactez l'équipe VivatBet à info@vivatbetsport.be ou via le formulaire de contact.",
+      "Questions ou demandes ? Contactez l'équipe FastScore à info@fastscore.be ou via le formulaire de contact.",
   },
   "/terms": {
-    title: "Conditions d'utilisation — VivatBet",
+    title: "Conditions d'utilisation — FastScore",
     description:
-      "Conditions d'utilisation de VivatBet par Vivat Sport. Lisez les règles qui régissent votre utilisation du site.",
+      "Conditions d'utilisation de FastScore par FastScore. Lisez les règles qui régissent votre utilisation du site.",
   },
   "/privacy": {
-    title: "Politique de confidentialité — VivatBet",
+    title: "Politique de confidentialité — FastScore",
     description:
-      "Comment VivatBet (Vivat Sport) collecte, utilise et protège vos données personnelles. Conforme au RGPD.",
+      "Comment FastScore (FastScore) collecte, utilise et protège vos données personnelles. Conforme au RGPD.",
   },
   "/cookies": {
-    title: "Politique de cookies — VivatBet",
+    title: "Politique de cookies — FastScore",
     description:
-      "Quels cookies VivatBet utilise, pourquoi et comment vous pouvez gérer vos préférences à tout moment.",
+      "Quels cookies FastScore utilise, pourquoi et comment vous pouvez gérer vos préférences à tout moment.",
   },
 };
 
 const seoNL: SeoDictionary = {
   "": {
-    title: "VivatBet — Live sportuitslagen & Wedstrijdcentrum",
+    title: "FastScore — Live sportuitslagen & Wedstrijdcentrum",
     description:
-      "Realtime uitslagen, kalender en resultaten in 500+ competities. Voetbal, basketbal, tennis en 30+ sporten. Aangedreven door Vivat Sport.",
-    keywords: ["live uitslagen", "sportuitslagen", "voetbal uitslagen", "vivat sport", "belgië"],
+      "Realtime uitslagen, kalender en resultaten in 500+ competities. Voetbal, basketbal, tennis en 30+ sporten. Aangedreven door FastScore.",
+    keywords: ["live uitslagen", "sportuitslagen", "voetbal uitslagen", "fastscore", "belgië"],
   },
   "/live": {
     title: "Live uitslagen — Alle wedstrijden nu",
@@ -189,39 +189,39 @@ const seoNL: SeoDictionary = {
     keywords: ["sportnieuws", "voetbalnieuws", "wedstrijdrecaps"],
   },
   "/about": {
-    title: "Over VivatBet — Live sport door Vivat Sport",
+    title: "Over FastScore — Live sport door FastScore",
     description:
-      "VivatBet is de live uitslagen- en wedstrijdcentrumervaring van Vivat Sport voor de Belgische markt.",
-    keywords: ["over fastscore", "vivat sport", "weddenschappen belgië"],
+      "FastScore is de live uitslagen- en wedstrijdcentrumervaring van FastScore voor de Belgische markt.",
+    keywords: ["over fastscore", "fastscore", "weddenschappen belgië"],
   },
   "/contact": {
-    title: "Contact VivatBet — Neem contact op",
+    title: "Contact FastScore — Neem contact op",
     description:
-      "Vragen of feedback? Bereik het VivatBet-team via info@vivatbetsport.be of het contactformulier.",
+      "Vragen of feedback? Bereik het FastScore-team via info@fastscore.be of het contactformulier.",
   },
   "/terms": {
-    title: "Gebruiksvoorwaarden — VivatBet",
+    title: "Gebruiksvoorwaarden — FastScore",
     description:
-      "Gebruiksvoorwaarden van VivatBet by Vivat Sport. Lees de regels die uw gebruik van de website regelen.",
+      "Gebruiksvoorwaarden van FastScore by FastScore. Lees de regels die uw gebruik van de website regelen.",
   },
   "/privacy": {
-    title: "Privacybeleid — VivatBet",
+    title: "Privacybeleid — FastScore",
     description:
-      "Hoe VivatBet (Vivat Sport) uw persoonsgegevens verzamelt, gebruikt en beschermt. AVG-conform.",
+      "Hoe FastScore (FastScore) uw persoonsgegevens verzamelt, gebruikt en beschermt. AVG-conform.",
   },
   "/cookies": {
-    title: "Cookiebeleid — VivatBet",
+    title: "Cookiebeleid — FastScore",
     description:
-      "Welke cookies VivatBet gebruikt, waarom en hoe u uw voorkeuren op elk moment kunt beheren.",
+      "Welke cookies FastScore gebruikt, waarom en hoe u uw voorkeuren op elk moment kunt beheren.",
   },
 };
 
 const seoDE: SeoDictionary = {
   "": {
-    title: "VivatBet — Live-Sportergebnisse & Match-Center",
+    title: "FastScore — Live-Sportergebnisse & Match-Center",
     description:
-      "Echtzeit-Ergebnisse, Spielpläne und Resultate in über 500 Ligen. Fußball, Basketball, Tennis und 30+ Sportarten. Powered by Vivat Sport.",
-    keywords: ["live ergebnisse", "sportergebnisse", "fußball ergebnisse", "vivat sport", "belgien"],
+      "Echtzeit-Ergebnisse, Spielpläne und Resultate in über 500 Ligen. Fußball, Basketball, Tennis und 30+ Sportarten. Powered by FastScore.",
+    keywords: ["live ergebnisse", "sportergebnisse", "fußball ergebnisse", "fastscore", "belgien"],
   },
   "/live": {
     title: "Live-Ergebnisse — Alle Spiele jetzt",
@@ -248,30 +248,30 @@ const seoDE: SeoDictionary = {
     keywords: ["sportnachrichten", "fußball nachrichten", "spielzusammenfassungen"],
   },
   "/about": {
-    title: "Über VivatBet — Live-Sport von Vivat Sport",
+    title: "Über FastScore — Live-Sport von FastScore",
     description:
-      "VivatBet ist das Live-Ergebnisse- und Match-Center-Erlebnis von Vivat Sport für den belgischen Markt.",
-    keywords: ["über fastscore", "vivat sport", "wetten belgien"],
+      "FastScore ist das Live-Ergebnisse- und Match-Center-Erlebnis von FastScore für den belgischen Markt.",
+    keywords: ["über fastscore", "fastscore", "wetten belgien"],
   },
   "/contact": {
-    title: "Kontakt VivatBet — Schreiben Sie uns",
+    title: "Kontakt FastScore — Schreiben Sie uns",
     description:
-      "Fragen oder Feedback? Erreichen Sie das VivatBet-Team unter info@vivatbetsport.be oder über das Kontaktformular.",
+      "Fragen oder Feedback? Erreichen Sie das FastScore-Team unter info@fastscore.be oder über das Kontaktformular.",
   },
   "/terms": {
-    title: "Nutzungsbedingungen — VivatBet",
+    title: "Nutzungsbedingungen — FastScore",
     description:
-      "Nutzungsbedingungen von VivatBet by Vivat Sport. Lesen Sie die Regeln, die Ihre Nutzung der Website regeln.",
+      "Nutzungsbedingungen von FastScore by FastScore. Lesen Sie die Regeln, die Ihre Nutzung der Website regeln.",
   },
   "/privacy": {
-    title: "Datenschutzerklärung — VivatBet",
+    title: "Datenschutzerklärung — FastScore",
     description:
-      "Wie VivatBet (Vivat Sport) Ihre personenbezogenen Daten erfasst, nutzt und schützt. DSGVO-konform.",
+      "Wie FastScore (FastScore) Ihre personenbezogenen Daten erfasst, nutzt und schützt. DSGVO-konform.",
   },
   "/cookies": {
-    title: "Cookie-Richtlinie — VivatBet",
+    title: "Cookie-Richtlinie — FastScore",
     description:
-      "Welche Cookies VivatBet verwendet, warum und wie Sie Ihre Einstellungen jederzeit verwalten können.",
+      "Welche Cookies FastScore verwendet, warum und wie Sie Ihre Einstellungen jederzeit verwalten können.",
   },
 };
 
@@ -315,8 +315,8 @@ export function buildPageMetadata(locale: Locale, route: StaticRoute): Metadata 
   const url = alternates.canonical;
 
   return {
-    // absolute, чтобы template "%s | VivatBet" из root layout не добавлял хвост —
-    // наши тайтлы уже содержат "VivatBet" в нужном месте.
+    // absolute, чтобы template "%s | FastScore" из root layout не добавлял хвост —
+    // наши тайтлы уже содержат "FastScore" в нужном месте.
     title: { absolute: seo.title },
     description: seo.description,
     keywords: seo.keywords,
@@ -334,7 +334,7 @@ export function buildPageMetadata(locale: Locale, route: StaticRoute): Metadata 
           url: `${SITE_URL}/og-image.svg`,
           width: 1200,
           height: 630,
-          alt: `${SITE_NAME} — Live Sports by Vivat Sport`,
+          alt: `${SITE_NAME} — Live Sports by FastScore`,
           type: "image/svg+xml",
         },
       ],

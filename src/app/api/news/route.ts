@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchSportsNews } from "@/lib/news-client";
-import { mixWithPromo } from "@/lib/promo-news";
 import { fetchSheetArticles } from "@/lib/sheets-news";
 import type { NewsArticle } from "@/types/news";
 
@@ -10,10 +9,10 @@ import type { NewsArticle } from "@/types/news";
  * Порядок выдачи:
  *   1. Кастомные статьи из Google Sheets для текущего языка (приоритет, internal)
  *   2. Внешние спортивные новости с NewsData.io (external)
- *   3. Промо-вставки (1 на каждые 3 реальные)
  *
- * Если Sheets пуст — отдаём только внешние + промо. Если NewsData упал —
- * только Sheets + промо. Если всё упало — пустой массив.
+ * Промо-вставки (welcome bonus / реклама ставок) отключены по запросу заказчика.
+ * Если Sheets пуст — отдаём только внешние. Если NewsData упал — только Sheets.
+ * Если всё упало — пустой массив.
  */
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
@@ -43,10 +42,9 @@ export async function GET(request: NextRequest) {
     // Композиция: featured → остальные из Sheets → внешние с NewsData
     const allReal = [...featured, ...regular, ...externalNews].slice(0, count);
 
-    // Миксуем с промо (1 промо на 3 реальные)
-    const mixed = mixWithPromo(allReal, 3);
-
-    return NextResponse.json({ items: mixed });
+    // Промо-вставки (welcome bonus, реклама ставок) отключены по запросу
+    // заказчика G&S MENA (2026-06-17): на сайте не должно быть бонусов и бет-промо.
+    return NextResponse.json({ items: allReal });
   } catch (error) {
     console.error("[news route] Error:", error);
     return NextResponse.json({ items: [] }, { status: 500 });

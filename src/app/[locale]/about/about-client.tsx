@@ -26,7 +26,7 @@ export default function AboutClient() {
     <div className="space-y-6 max-w-4xl">
       <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}>
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-semibold text-brand-orange mb-4">
-          <Zap className="h-3 w-3" /> Vivat Sport
+          <Zap className="h-3 w-3" /> FastScore
         </div>
         <h1 className="text-2xl font-black tracking-tight mb-2">{t("title")}</h1>
         <p className="text-sm text-text-secondary leading-relaxed">{t("subtitle")}</p>
