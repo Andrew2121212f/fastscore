@@ -98,9 +98,6 @@ export default function Footer() {
           <span className="text-xs text-text-muted">
             &copy; {year} vivatbetsport.be — {t("rights")}
           </span>
-          <div className="flex items-center gap-4 text-xs text-text-muted">
-            <span>Powered by Vivat Sport</span>
-          </div>
         </div>
       </div>
     </footer>

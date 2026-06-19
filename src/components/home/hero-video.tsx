@@ -13,8 +13,7 @@ import { useTranslations } from "next-intl";
  *   - hero-poster.jpg — статичный постер до загрузки видео
  *
  * Если видео не загрузилось — показывается постер или градиент.
- * Hero используется как информационный заголовок страницы — CTA отсутствует
- * (по требованию: переходы на vivatbet только через баннер слева и кнопку в шапке).
+ * Hero используется как информационный заголовок страницы — CTA отсутствует.
  */
 export default function HeroVideo() {
   const t = useTranslations("home.hero");
@@ -31,7 +30,9 @@ export default function HeroVideo() {
     });
   }, []);
 
-  const posterFallback = "/banners/vivat-promo-1-4x.png";
+  // Запасной постер, если видео-теги не загрузились. Тот же кадр, что и
+  // poster у <video> — промо-баннер как фоллбэк убран вместе с беттинг-промо.
+  const posterFallback = "/videos/hero-poster.jpg";
 
   return (
     <section className="relative overflow-hidden rounded-3xl border border-border h-[50vh] sm:h-[60vh] lg:h-[70vh] min-h-[320px] max-h-[640px]">

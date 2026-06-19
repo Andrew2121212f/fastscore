@@ -12,7 +12,6 @@ import {
 import { cn } from "@/lib/utils";
 import { SPORT_IDS } from "@/types/api";
 import SportIcon from "@/components/sports/sport-icon";
-import PromoBanner from "@/components/promo/promo-banner";
 
 const mainNav = [
   { key: "home", href: "", icon: Home },
@@ -144,15 +143,9 @@ export default function Sidebar() {
       {/* INFO раздел перенесён в Footer (внизу основного контента) — освобождает
           место в сайдбаре, чтобы он помещался по высоте на стандартных лаптопах. */}
 
-      {/* Spacer */}
+      {/* Spacer — толкает контент вверх, низ сайдбара остаётся пустым
+          (промо-баннер убран). */}
       <div className="flex-1 min-h-2" />
-
-      {/* Bottom controls — переключатели темы/языка перенесены в шапку
-          (Topbar), чтобы пользователь находил их там, где привычно. В сайдбаре
-          оставляем только промо-баннер. */}
-      <div className="px-4 pb-3 space-y-2">
-        <PromoBanner variant={1} size="compact" className="rounded-xl" />
-      </div>
     </div>
   );
 

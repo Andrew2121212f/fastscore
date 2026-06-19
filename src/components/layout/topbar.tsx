@@ -8,7 +8,6 @@ import Link from "next/link";
 import BrandLogo from "@/components/layout/brand-logo";
 import { cn, formatMatchTime } from "@/lib/utils";
 import { useLiveEvents } from "@/hooks/use-live-events";
-import { EXTERNAL_PLATFORM } from "@/lib/constants";
 import { useTheme } from "@/components/theme-provider";
 import { localeNames, type Locale } from "@/i18n/config";
 
@@ -229,18 +228,6 @@ export default function Topbar() {
               </div>
             )}
           </div>
-
-          {/* Кнопка Vivat Sport */}
-          <a
-            href={EXTERNAL_PLATFORM}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 h-9 w-9 sm:w-auto sm:px-4 sm:py-2 bg-brand-orange text-white text-sm font-semibold rounded-xl hover:brightness-110 transition-all shadow-sm shadow-brand-orange/20"
-            aria-label="Vivat Sport"
-          >
-            <ExternalLink className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
-            <span className="hidden sm:inline">Vivat Sport</span>
-          </a>
         </div>
       </div>
     </header>

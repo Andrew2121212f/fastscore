@@ -32,9 +32,6 @@ export const SPORT_ICONS: Record<number, string> = {
 
 export const PARTNER_LINK = "fastscore.be/bet";
 
-// Ссылка на внешнюю платформу (используется по всему сайту)
-export const EXTERNAL_PLATFORM = "https://vivatsport.be";
-
 // Маппинг sport ID → slug для SVG-иконок в public/icons/sports/
 export const SPORT_ICON_SLUGS: Record<number, string> = {
   1: "football",
